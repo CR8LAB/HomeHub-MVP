@@ -1,46 +1,81 @@
-body{
+/* ===========================
+   CSS Reset
+=========================== */
+
+*{
     margin:0;
-
-    background:var(--bg-color);
-
-    color:var(--dark-text);
-
-    font-family:"Poppins",sans-serif;
+    padding:0;
+    box-sizing:border-box;
 }
 
-#app{
+/* ===========================
+   Body
+=========================== */
 
-    max-width:800px;
+body{
+
+    background:var(--bg-color);
+    color:var(--dark-text);
+    font-family:"Poppins",sans-serif;
 
     min-height:100vh;
 
-    margin:20px auto;
+}
 
-    background: var(--bg-color);
+/* ===========================
+   App Container
+=========================== */
 
-    border-radius:var(--radius);
+#app{
 
-    box-shadow:var(--shadow);
+    width:100%;
+    max-width:900px;
+
+    min-height:100vh;
+
+    margin:0 auto;
+
+    background:var(--bg-color);
+
+    display:flex;
+    flex-direction:column;
 
 }
+
+/* ===========================
+   Header
+=========================== */
 
 header{
 
     padding:var(--spacing-lg);
 
+    display:flex;
+    flex-direction:column;
+
+    gap:10px;
+
 }
+
+/* ===========================
+   Main
+=========================== */
 
 main{
 
+    flex:1;
+
     padding:var(--spacing-lg);
-
-    display:flex;
-
-    justify-content:center;
 
 }
 
+/* ===========================
+   Footer
+=========================== */
+
 footer{
+
+    margin-top:auto;
 
     padding:var(--spacing-md);
 

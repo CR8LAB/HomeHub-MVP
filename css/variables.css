@@ -1,26 +1,52 @@
-:root{
+:root {
 
-    /* Colors */
+    /* ===========================
+       Colors
+    ============================ */
 
-    --primary:#4F6F52;
-    --secondary:#739072;
-    --accent:#ECE3CE;
-    --bg-color:rgb(229, 216, 138);
-    --white:#FFFFFF;
-    --dark-text:#2F2F2F;
+    --primary: #4F6F52;
+    --secondary: #739072;
+    --accent: #ECE3CE;
 
-    /* Border Radius */
+    --bg-color: #ebe7d4;
+    --white: #FFFFFF;
+    --dark-text: #2F2F2F;
 
-    --radius:18px;
+    /* ===========================
+       Typography
+    ============================ */
 
-    /* Shadows */
+    --font-sm: 14px;
+    --font-md: 16px;
+    --font-lg: 20px;
+    --font-xl: 28px;
 
-    --shadow:0 4px 12px rgba(0,0,0,0.08);
+    /* ===========================
+       Border Radius
+    ============================ */
 
-    /* Spacing */
+    --radius-sm: 10px;
+    --radius-md: 18px;
+    --radius-lg: 24px;
 
-    --spacing-sm:10px;
-    --spacing-md:20px;
-    --spacing-lg:30px;
+    /* ===========================
+       Shadows
+    ============================ */
+
+    --shadow-sm: 0 8px 20px rgba(0, 0, 0, 0.08);
+
+    /* ===========================
+       Spacing
+    ============================ */
+
+    --spacing-sm: 10px;
+    --spacing-md: 20px;
+    --spacing-lg: 30px;
+
+    /* ===========================
+       Animation
+    ============================ */
+
+    --transition: 0.3s ease;
 
 }
