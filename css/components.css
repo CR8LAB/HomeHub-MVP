@@ -1,0 +1,31 @@
+.card{
+
+    background:var(--white);
+
+    border:none;
+
+    border-radius:var(--radius);
+
+    box-shadow:var(--shadow);
+
+    padding:40px;
+
+    text-align:center;
+
+}
+
+.card h2{
+
+    color:var(--primary);
+
+    font-weight:700;
+
+}
+
+.card p{
+
+    color:var(--dark-text);
+
+    margin-bottom:8px;
+
+}
