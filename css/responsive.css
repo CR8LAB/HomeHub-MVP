@@ -1,0 +1,57 @@
+/* mobile*/
+
+@media (max-width: 767px){
+
+.dashboard{ display: flex;
+flex-direction: column;}
+
+.weather-card,
+.summary-card,
+.quick-card{
+
+    width:100%;
+
+}
+
+
+nav{
+
+display:grid;
+
+grid-template-columns:1fr 1fr;
+
+gap:15px;
+
+}
+
+.dashboard{
+
+    grid-template-columns:1fr;
+}
+
+}
+
+/* tablet */
+
+@media (min-width:768px) and (max-width:1023px){
+
+.dashboard{
+
+gap:16px;
+
+}
+}
+
+
+/* desktop*/
+@media (min-width:1024px){
+
+#app{
+
+max-width:1200px;
+
+}
+
+
+
+}
