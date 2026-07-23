@@ -1,168 +1,318 @@
-/* ===========================
+/* ==========================================
    Card
-=========================== */
+========================================== */
 
 .card{
+    background: var(--white);
+    border: none;
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
 
-    background:var(--white);
+    padding: 32px;
+    min-height: 260px;
 
-    border:none;
-
-    border-radius:var(--radius-md);
-
-    box-shadow:var(--shadow-sm);
-
-    padding:40px;
-
-    text-align:center;
-
- min-height:260px;
+    display: flex;
+    flex-direction: column;
 }
 
 .card h2{
+    color: var(--primary);
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 24px;
+}
 
-    color:var(--primary);
-
-    font-weight:700;
-
+.card h3{
+    color: var(--primary);
+    margin-bottom: 18px;
 }
 
 .card p{
-
-    color:var(--dark-text);
-
-    margin-bottom:8px;
-
+    color: var(--dark-text);
+    margin-bottom: 8px;
 }
 
-/* ===========================
+
+/* ==========================================
    Navigation
-=========================== */
+========================================== */
 
 nav{
-
-    display:flex;
-
-    gap:16px;
-
+    display: flex;
+    gap: 16px;
 }
 
 .nav-btn{
+    flex: 1;
 
-    flex:1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
+    gap: 8px;
 
-    border:none;
+    background: var(--white);
+    border: none;
+    border-radius: var(--radius-md);
 
-    background:var(--white);
+    padding: 20px 10px;
 
-    border-radius:var(--radius-md);
+    box-shadow: var(--shadow-sm);
 
-    padding:20px 10px;
-
-    box-shadow:var(--shadow-sm);
-
-    cursor:pointer;
-
-    transition:var(--transition);
-
+    cursor: pointer;
+    transition: var(--transition);
 }
 
 .nav-btn:hover{
-
-    transform:translateY(-3px);
-
+    transform: translateY(-3px);
 }
 
 .nav-btn i{
-
-    font-size:1.7rem;
-
-    color:var(--primary);
-
-    margin-bottom:8px;
-
+    font-size: 1.7rem;
+    color: var(--primary);
 }
 
 .nav-btn span{
-
-    font-size:.75rem;
-
-    font-weight:500;
-
+    font-size: .8rem;
+    font-weight: 500;
 }
 
 .nav-btn.active{
-
-    background:var(--primary);
-
-    color:var(--white);
-
+    background: var(--primary);
+    color: var(--white);
 }
 
 .nav-btn.active i{
-
-    color:var(--white);
-
+    color: var(--white);
 }
 
+
+/* ==========================================
+   Header
+========================================== */
+
 .header-status{
-
-    display:flex;
-
-    justify-content:space-between;
-
-    align-items:center;
-
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .weather{
-
-    display:flex;
-
-    align-items:center;
-
-    gap:10px;
-
-}
-
-.summary-card{
     display: flex;
-
-    flex-direction: column;
-
-   gap: 20px;
-}
-
-.quick-card{
-    display:flex;
-    flex-direction:column;
-    align-items:center;
+    align-items: center;
     gap: 10px;
 }
 
-.quick-item{
-    display:flex;
-    align-items:center;
-    gap:12px;
 
-    width:max-content;
+/* ==========================================
+   Dashboard Cards
+========================================== */
+
+.summary-card{
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.task-item{
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.task-item i{
+    color: var(--primary);
+}
+
+.quick-card{
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.quick-item{
+    display: flex;
+    align-items: center;
+    gap: 12px;
 }
 
 .quick-item i{
-
-    color:var(--primary);
-
-    font-size:1.2rem;
-
+    color: var(--primary);
+    font-size: 1.2rem;
 }
 
 .weather-card{
-
     gap: 20px;
 }
 
+
+/* ==========================================
+   To Do Page
+========================================== */
+
+.todo-page{
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+}
+
+.todo-page .card{
+    width: 100%;
+    max-width: 550px;
+}
+
+
+/* ==========================================
+   Input Area
+========================================== */
+
+.todo-input{
+    display: flex;
+    gap: 10px;
+    margin-bottom: 24px;
+}
+
+#taskName{
+    flex: 1;
+
+    padding: 12px 14px;
+
+    border: 1px solid #d9d9d9;
+    border-radius: var(--radius-md);
+
+    font-size: .95rem;
+    outline: none;
+
+    transition: var(--transition);
+}
+
+#taskName:focus{
+    border-color: var(--primary);
+}
+
+#saveBtn{
+    padding: 12px 18px;
+
+    border: none;
+    border-radius: var(--radius-md);
+
+    background: var(--primary);
+    color: var(--white);
+
+    cursor: pointer;
+
+    transition: var(--transition);
+}
+
+#saveBtn:hover{
+    opacity: .9;
+}
+
+
+/* ==========================================
+   Task List
+========================================== */
+
+#taskList{
+    width: 100%;
+
+    list-style: none;
+
+    padding: 0;
+    margin: 0;
+}
+
+#taskList li{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 14px 0;
+
+    border-bottom: 1px solid #ececec;
+}
+
+#taskList li:last-child{
+    border-bottom: none;
+}
+
+.task-name{
+    flex: 1;
+    text-align: left;
+    word-break: break-word;
+}
+
+
+/* ==========================================
+   Task Actions
+========================================== */
+
+.task-actions{
+    display: flex;
+    gap: 8px;
+}
+
+.task-actions button{
+    border: none;
+    border-radius: 6px;
+
+    padding: 7px 12px;
+
+    cursor: pointer;
+
+    transition: var(--transition);
+
+    font-size: .8rem;
+}
+
+.complete-btn{
+    background: #2ecc71;
+    color: white;
+}
+
+.complete-btn:hover{
+    background: #27ae60;
+}
+
+.clear-btn{
+    background: #e74c3c;
+    color: white;
+}
+
+.clear-btn:hover{
+    background: #c0392b;
+}
+
+
+/* ==========================================
+   Completed Task
+========================================== */
+
+.completed{
+    text-decoration: line-through;
+    opacity: .6;
+}
+
+
+/* ==========================================
+   Utility
+========================================== */
+
+.list-activity{
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.add-task{
+    padding: 10px 16px;
+
+    border: none;
+    border-radius: var(--radius-md);
+
+    background: var(--secondary);
+    color: var(--white);
+
+    cursor: pointer;
+}
