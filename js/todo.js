@@ -6,26 +6,25 @@ const tasks = [];
 //input elements
 export function initTodo() {
 
-const taskInput = document.getElementById("taskName");
+    const taskInput = document.getElementById("taskName");
     const saveBtn = document.getElementById("saveBtn");
-    const taskList = document.getElementById("taskList");
 
-loadTasks()
+    loadTasks();
 
-saveBtn.addEventListener("click", () => {
+    renderTasks();   // <-- render ONLY on the Todo page
 
-    if (taskInput.value.trim() === "") {
-        return;
-    }
+    saveBtn.addEventListener("click", () => {
 
-    addTask(taskInput.value);
+        if (taskInput.value.trim() === "") {
+            return;
+        }
 
-   
+        addTask(taskInput.value);
 
-    taskInput.value = ""; // clear input field
+        taskInput.value = "";
 
-    
-});
+    });
+
 }
 
 
@@ -51,22 +50,44 @@ renderTasks()
 }
 
 
-function createTaskElement(task,index){
- const li = document.createElement("li");
-        li.textContent = task.task;
+function createTaskElement(task, index) {
 
-const button = document.createElement("button")
-        button.textContent = "clear"  ;
+    // Create list item
+    const li = document.createElement("li");
 
-li.appendChild(button)
+    // Create checkbox
+    const completeCheck = document.createElement("input");
+    completeCheck.type = "checkbox";
+    completeCheck.checked = task.completed;
+    completeCheck.classList.add("completeCheck");
 
-button.addEventListener("click", () => {
+    completeCheck.addEventListener("change", () => {
+        task.completed = completeCheck.checked;
 
-clearTask(index);
+        saveTasks();
+        renderTasks();
+    });
 
-})
+    // Create task name
+    const taskName = document.createElement("span");
+    taskName.textContent = task.task;
+    taskName.classList.add("task-name");
 
-        return li
+    // Create Clear button
+    const clearBtn = document.createElement("button");
+    clearBtn.textContent = "Clear";
+    clearBtn.classList.add("clear-btn");
+
+    clearBtn.addEventListener("click", () => {
+        clearTask(index);
+    });
+
+    // Add elements in the correct order
+    li.appendChild(completeCheck);
+    li.appendChild(taskName);
+    li.appendChild(clearBtn);
+
+    return li;
 }
 
 
@@ -74,12 +95,16 @@ clearTask(index);
 function renderTasks() {
     const taskList = document.getElementById("taskList");
 
+    if (!taskList) {
+        return;
+    }
+
     taskList.innerHTML = "";
 
-  tasks.forEach((task, index) => {
-    const li = createTaskElement(task,index);
-    taskList.appendChild(li);
-});
+    tasks.forEach((task, index) => {
+        const li = createTaskElement(task, index);
+        taskList.appendChild(li);
+    });
 }
 
 // clear task //
@@ -104,7 +129,7 @@ function saveTasks(){
 
 // load from local storage
 
-function loadTasks(){
+export function loadTasks(){
 const storedData = localStorage.getItem("tasks"); 
   
 if( storedData === null){
@@ -113,11 +138,27 @@ if( storedData === null){
 
 const loadedTasks = JSON.parse(storedData) // turns string back into array
 
-
+tasks.length = 0;   // Clear existing tasks
 
 loadedTasks.forEach((task) =>{ //loop through each loaded task and add to already existing array
 tasks.push(task)
 })
 
-renderTasks()
+
 };
+
+function completeTask(index){
+
+    tasks[index].completed = true;
+
+    saveTasks(); // after updating always save and render again
+
+    renderTasks();
+
+};
+
+export function getTasks(){
+   
+return tasks
+
+}

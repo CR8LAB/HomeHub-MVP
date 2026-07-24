@@ -29,6 +29,13 @@ gap:15px;
     grid-template-columns:1fr;
 }
 
+#taskList li{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+
 }
 
 /* tablet */
