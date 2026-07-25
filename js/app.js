@@ -1,7 +1,7 @@
 import { initTodo, loadTasks } from "./todo.js";
 import { getTasks } from "./todo.js";
 import { saveData, loadData } from "./storage.js";
-
+import {initHomeInfo} from "./homeinfo.js";
 
 
 /* DOM references*/
@@ -110,12 +110,252 @@ function renderToDo() {
 
 
 
-function renderHomeInfoPage(){
-    
-};
+function renderHomeInfo() {
+
+    appContent.innerHTML = `
+
+    <div class="page-header">
+        <h2>🏠 Home Information</h2>
+        <p>Store important information about your property.</p>
+    </div>
+
+    <!-- ================= PROPERTY ================= -->
+
+    <div class="section active">
+
+        <button class="section-header">
+            <span class="arrow">▼</span>
+            Property
+        </button>
+
+        <div class="section-content">
+
+            <div class="form-group">
+                <label for="nickname">Household Nickname</label>
+                <input type="text" id="nickname" placeholder="e.g. Home">
+            </div>
+
+            <div class="form-group">
+                <label for="address">Street Address</label>
+                <input type="text" id="address" placeholder="Street Address">
+            </div>
+
+            <div class="form-group">
+                <label for="municipalityAccount">Municipality Account Number</label>
+                <input type="text" id="municipalityAccount" placeholder="Account Number">
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- ================= UTILITIES ================= -->
+
+    <div class="section">
+
+        <button class="section-header">
+            <span class="arrow">▶</span>
+            Utilities
+        </button>
+
+        <div class="section-content">
+
+            <div class="form-group">
+                <label for="electricityMeter">Electricity Meter Number</label>
+                <input type="text" id="electricityMeter">
+            </div>
+
+            <div class="form-group">
+                <label for="waterMeter">Water Meter Number</label>
+                <input type="text" id="waterMeter">
+            </div>
+
+            <div class="form-group">
+                <label for="electricityBox">Electricity Box Number</label>
+                <input type="text" id="electricityBox">
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- ================= MUNICIPAL SERVICES ================= -->
+
+    <div class="section">
+
+        <button class="section-header">
+            <span class="arrow">▶</span>
+            Municipal Services
+        </button>
+
+        <div class="section-content">
+
+            <div class="form-group">
+                <label for="municipalityPhone">Municipality Contact Number</label>
+                <input type="text" id="municipalityPhone">
+            </div>
+
+            <div class="form-group">
+                <label for="electricityFaults">Electricity Fault Number</label>
+                <input type="text" id="electricityFaults">
+            </div>
+
+            <div class="form-group">
+                <label for="waterFaults">Water Fault Number</label>
+                <input type="text" id="waterFaults">
+            </div>
+
+            <div class="form-group">
+                <label for="refuseDay">Refuse Collection Day</label>
+
+                <select id="refuseDay">
+
+                    <option value="">Select Day</option>
+
+                    <option>Monday</option>
+                    <option>Tuesday</option>
+                    <option>Wednesday</option>
+                    <option>Thursday</option>
+                    <option>Friday</option>
+
+                </select>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- ================= SECURITY ================= -->
+
+    <div class="section">
+
+        <button class="section-header">
+            <span class="arrow">▶</span>
+            Security
+        </button>
+
+        <div class="section-content">
+
+            <div class="form-group">
+                <label for="securityCompany">Security Company</label>
+                <input type="text" id="securityCompany">
+            </div>
+
+            <div class="form-group">
+                <label for="securityPhone">Security Contact Number</label>
+                <input type="text" id="securityPhone">
+            </div>
+
+            <div class="form-group">
+                <label for="alarmCompany">Alarm Company</label>
+                <input type="text" id="alarmCompany">
+            </div>
+
+            <div class="form-group">
+                <label for="alarmPhone">Alarm Contact Number</label>
+                <input type="text" id="alarmPhone">
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- ================= ACCESS ================= -->
+
+    <div class="section">
+
+        <button class="section-header">
+            <span class="arrow">▶</span>
+            Access
+        </button>
+
+        <div class="section-content">
+
+            <div class="form-group">
+                <label for="gateCode">Gate Code</label>
+                <input type="text" id="gateCode">
+            </div>
+
+            <div class="form-group">
+                <label for="wifiName">Wi-Fi Name</label>
+                <input type="text" id="wifiName">
+            </div>
+
+            <div class="form-group">
+
+                <label for="wifiPassword">Wi-Fi Password</label>
+
+                <div class="password-group">
+
+                    <input
+                        type="password"
+                        id="wifiPassword"
+                    >
+
+                    <button
+                        type="button"
+                        id="toggleWifiPassword"
+                    >
+                        👁
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- ================= ACTION BUTTONS ================= -->
+
+    <div class="homeinfo-actions">
+
+        <button id="saveHomeInfoBtn">
+            Save Information
+        </button>
+
+        <button id="removeHomeInfoBtn">
+            Remove Information
+        </button>
+
+    </div>
+
+    `;
+
+    initHomeInfo();
+
+}
 
 function renderEmergencyPage(){
     
+appContent.innerHTML = `
+
+
+
+`
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 };
 
 //Preview card  
@@ -205,7 +445,7 @@ toDoBtn.addEventListener("click",renderToDo);
 
 homeBtn.addEventListener("click",renderHomePage);
 
-homeInfoBtn.addEventListener("click",renderHomeInfoPage);
+homeInfoBtn.addEventListener("click",renderHomeInfo);
 
 emergencyBtn.addEventListener("click",renderEmergencyPage);
 
