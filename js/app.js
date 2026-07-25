@@ -1,5 +1,8 @@
 import { initTodo, loadTasks } from "./todo.js";
 import { getTasks } from "./todo.js";
+import { saveData, loadData } from "./storage.js";
+
+
 
 /* DOM references*/
 const appContent = document.getElementById("app-content");

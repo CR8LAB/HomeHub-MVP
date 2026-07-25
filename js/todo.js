@@ -1,4 +1,4 @@
-
+import { saveData, loadData } from "./storage.js";
 
 const tasks = [];
 
@@ -123,29 +123,27 @@ renderTasks()
 
 //save tasks in localStorage //
 
-function saveTasks(){
-    localStorage.setItem("tasks",JSON.stringify(tasks)) // converts the array in string
-};
+function saveTasks() {
+    saveData("tasks", tasks);
+}
 
 // load from local storage
 
-export function loadTasks(){
-const storedData = localStorage.getItem("tasks"); 
-  
-if( storedData === null){
-    return ;
+export function loadTasks() {
+
+    const loadedTasks = loadData("tasks");
+
+    tasks.length = 0;
+
+    if (loadedTasks === null) {
+        return;
+    }
+
+    loadedTasks.forEach(task => {
+        tasks.push(task);
+    });
+
 }
-
-const loadedTasks = JSON.parse(storedData) // turns string back into array
-
-tasks.length = 0;   // Clear existing tasks
-
-loadedTasks.forEach((task) =>{ //loop through each loaded task and add to already existing array
-tasks.push(task)
-})
-
-
-};
 
 function completeTask(index){
 
