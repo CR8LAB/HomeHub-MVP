@@ -316,9 +316,7 @@ function renderHomeInfo() {
             Save Information
         </button>
 
-        <button id="removeHomeInfoBtn">
-            Remove Information
-        </button>
+        
 
     </div>
 
