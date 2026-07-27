@@ -1,7 +1,7 @@
 import { saveData, loadData } from "../services/storage.js";
 
 const tasks = [];
-
+const appContent = document.getElementById("app-content");
 
 //input elements
 export function initTodo() {
@@ -159,4 +159,25 @@ export function getTasks(){
    
 return tasks
 
+};
+
+export function renderToDo() {
+    appContent.innerHTML = `
+        <section class="todo-page">
+            <div class="card">
+                <h2>To Do List</h2>
+
+                <input id="taskName" placeholder="Enter a task">
+
+                <button id="saveBtn">
+                    Add Task
+                </button>
+
+                <ul id="taskList"></ul>
+            </div>
+        </section>
+    `;
+
+    initTodo();
+    setActiveNav("todo-btn");
 }
