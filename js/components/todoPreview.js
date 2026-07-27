@@ -6,6 +6,7 @@ export function renderTodoPreview(){
 const todoPreview = document.getElementById("todo-preview")
 
 const tasks = getTasks();
+console.log(getTasks());
 
 const totalTasks = tasks.length;
 

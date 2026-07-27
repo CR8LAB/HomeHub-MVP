@@ -1,4 +1,7 @@
 import { saveData, loadData } from "../services/storage.js";
+import { setActiveNav } from "../components/navigation.js";
+
+
 
 const tasks = [];
 const appContent = document.getElementById("app-content");

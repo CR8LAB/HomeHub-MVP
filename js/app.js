@@ -1,13 +1,15 @@
 import { initTodo, loadTasks } from "./pages/todoPage.js";
 import { getTasks } from "./pages/todoPage.js";
 import { saveData, loadData } from "./services/storage.js";
-import {initHomeInfo} from "./pages/homeinfo.js";
+import {initHomeInfo} from "./pages/homeInfoPage.js";
 import { initEmergency } from "./pages/emergency.js";
 import { renderWeatherCard, initWeather } from "./weather/weather.js";
 import { setActiveNav } from "./components/navigation.js";
 import { renderQuickAccess } from "./components/quickAccess.js";
 import { renderTodoPreview } from "./components/todoPreview.js";
 import { renderToDo } from "./pages/todoPage.js";
+import { renderWeatherPage } from "./pages/weatherPage.js";
+import { renderHomeInfoPage } from "./pages/homeInfoPage.js";
 
 const appContent = document.getElementById("app-content");
 
@@ -66,226 +68,6 @@ setActiveNav("home-btn");
 }
 
 
-
-
-
-
-
-function renderHomeInfo() {
-
-    appContent.innerHTML = `
-
-    <div class="page-header">
-        <h2>🏠 Home Information</h2>
-        <p>Store important information about your property.</p>
-    </div>
-
-    <!-- ================= PROPERTY ================= -->
-
-    <div class="section active">
-
-        <button class="section-header">
-            <span class="arrow">▼</span>
-            Property
-        </button>
-
-        <div class="section-content">
-
-            <div class="form-group">
-                <label for="nickname">Household Nickname</label>
-                <input type="text" id="nickname" placeholder="e.g. Home">
-            </div>
-
-            <div class="form-group">
-                <label for="address">Street Address</label>
-                <input type="text" id="address" placeholder="Street Address">
-            </div>
-
-            <div class="form-group">
-                <label for="municipalityAccount">Municipality Account Number</label>
-                <input type="text" id="municipalityAccount" placeholder="Account Number">
-            </div>
-
-        </div>
-
-    </div>
-
-    <!-- ================= UTILITIES ================= -->
-
-    <div class="section">
-
-        <button class="section-header">
-            <span class="arrow">▶</span>
-            Utilities
-        </button>
-
-        <div class="section-content">
-
-            <div class="form-group">
-                <label for="electricityMeter">Electricity Meter Number</label>
-                <input type="text" id="electricityMeter">
-            </div>
-
-            <div class="form-group">
-                <label for="waterMeter">Water Meter Number</label>
-                <input type="text" id="waterMeter">
-            </div>
-
-            <div class="form-group">
-                <label for="electricityBox">Electricity Box Number</label>
-                <input type="text" id="electricityBox">
-            </div>
-
-        </div>
-
-    </div>
-
-    <!-- ================= MUNICIPAL SERVICES ================= -->
-
-    <div class="section">
-
-        <button class="section-header">
-            <span class="arrow">▶</span>
-            Municipal Services
-        </button>
-
-        <div class="section-content">
-
-            <div class="form-group">
-                <label for="municipalityPhone">Municipality Contact Number</label>
-                <input type="text" id="municipalityPhone">
-            </div>
-
-            <div class="form-group">
-                <label for="electricityFaults">Electricity Fault Number</label>
-                <input type="text" id="electricityFaults">
-            </div>
-
-            <div class="form-group">
-                <label for="waterFaults">Water Fault Number</label>
-                <input type="text" id="waterFaults">
-            </div>
-
-            <div class="form-group">
-                <label for="refuseDay">Refuse Collection Day</label>
-
-                <select id="refuseDay">
-
-                    <option value="">Select Day</option>
-
-                    <option>Monday</option>
-                    <option>Tuesday</option>
-                    <option>Wednesday</option>
-                    <option>Thursday</option>
-                    <option>Friday</option>
-
-                </select>
-
-            </div>
-
-        </div>
-
-    </div>
-
-    <!-- ================= SECURITY ================= -->
-
-    <div class="section">
-
-        <button class="section-header">
-            <span class="arrow">▶</span>
-            Security
-        </button>
-
-        <div class="section-content">
-
-            <div class="form-group">
-                <label for="securityCompany">Security Company</label>
-                <input type="text" id="securityCompany">
-            </div>
-
-            <div class="form-group">
-                <label for="securityPhone">Security Contact Number</label>
-                <input type="text" id="securityPhone">
-            </div>
-
-            <div class="form-group">
-                <label for="alarmCompany">Alarm Company</label>
-                <input type="text" id="alarmCompany">
-            </div>
-
-            <div class="form-group">
-                <label for="alarmPhone">Alarm Contact Number</label>
-                <input type="text" id="alarmPhone">
-            </div>
-
-        </div>
-
-    </div>
-
-    <!-- ================= ACCESS ================= -->
-
-    <div class="section">
-
-        <button class="section-header">
-            <span class="arrow">▶</span>
-            Access
-        </button>
-
-        <div class="section-content">
-
-            <div class="form-group">
-                <label for="gateCode">Gate Code</label>
-                <input type="text" id="gateCode">
-            </div>
-
-            <div class="form-group">
-                <label for="wifiName">Wi-Fi Name</label>
-                <input type="text" id="wifiName">
-            </div>
-
-            <div class="form-group">
-
-                <label for="wifiPassword">Wi-Fi Password</label>
-
-                <div class="password-group">
-
-                    <input
-                        type="password"
-                        id="wifiPassword"
-                    >
-
-                    <button
-                        type="button"
-                        id="toggleWifiPassword"
-                    >
-                        👁
-                    </button>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
-
-    <!-- ================= ACTION BUTTONS ================= -->
-
-    <div class="homeinfo-actions">
-
-        <button id="saveHomeInfoBtn">
-            Save Information
-        </button>
-
-        
-
-    </div>
-
-    `;
-
-    initHomeInfo();
-setActiveNav("homeinfo-btn");
-}
 
 
 function renderEmergencyInfo() {
@@ -477,7 +259,7 @@ toDoBtn.addEventListener("click",renderToDo);
 
 homeBtn.addEventListener("click",renderHomePage);
 
-homeInfoBtn.addEventListener("click",renderHomeInfo);
+homeInfoBtn.addEventListener("click",renderHomeInfoPage);
 
 emergencyBtn.addEventListener("click",renderEmergencyInfo);
 
