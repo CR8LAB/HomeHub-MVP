@@ -4,6 +4,7 @@ import { saveData, loadData } from "./storage.js";
 import {initHomeInfo} from "./homeinfo.js";
 import { initEmergency } from "./emergency.js";
 import { renderWeatherCard, initWeather } from "./weather.js";
+import { setActiveNav } from "./navigation.js";
 
 /* DOM references*/
 const appContent = document.getElementById("app-content");
@@ -59,6 +60,7 @@ function renderHomePage() {
     renderTodoPreview();
 renderQuickAccess();
 renderWeatherCard(renderWeatherPage);
+setActiveNav("home-btn");
 }
 
 
@@ -81,6 +83,7 @@ function renderToDo() {
     `;
 
     initTodo();
+    setActiveNav("todo-btn");
 }
 
 function renderWeatherPage() {
@@ -314,7 +317,7 @@ function renderHomeInfo() {
     `;
 
     initHomeInfo();
-
+setActiveNav("homeinfo-btn");
 }
 
 
@@ -497,7 +500,7 @@ function renderEmergencyInfo() {
     `;
 
     initEmergency();
-
+setActiveNav("emergency-btn");
 }
 
 

@@ -1,64 +1,237 @@
-/* mobile*/
+/* ==========================================
+   MOBILE
+========================================== */
 
-@media (max-width: 767px){
+@media (max-width:767px){
 
-.dashboard{ display: flex;
-flex-direction: column;}
+    /* Dashboard */
 
-.weather-card,
-.summary-card,
-.quick-card{
+    .dashboard{
+        display:flex;
+        flex-direction:column;
+        gap:20px;
+    }
 
-    width:100%;
+    .weather-card,
+    .summary-card,
+    .quick-card{
+        width:100%;
+    }
+
+    /* Space for sticky footer */
+
+    body{
+        padding-bottom:80px;
+    }
+
+    /* Sticky Footer */
+
+    footer{
+        position:fixed;
+        left:0;
+        bottom:0;
+        width:100%;
+        z-index:1000;
+    }
+
+    footer nav{
+        display:flex;
+        justify-content:space-around;
+        align-items:center;
+
+        width:100%;
+        height:72px;
+
+        margin:0;
+        padding:0;
+
+        background:var(--primary);
+
+        box-shadow:0 -3px 12px rgba(0,0,0,.18);
+    }
+
+    footer .nav-btn{
+
+        flex:1;
+
+        height:100%;
+
+        display:flex;
+        flex-direction:column;
+        justify-content:center;
+        align-items:center;
+
+        gap:4px;
+
+        padding:0;
+
+        border:none;
+        border-radius:0;
+
+        background:transparent;
+        box-shadow:none;
+
+        position:relative;
+
+        cursor:pointer;
+    }
+
+    footer .nav-btn i,
+    footer .nav-btn span{
+        color:rgba(255,255,255,.75);
+    }
+
+    footer .nav-btn i{
+        font-size:22px;
+    }
+
+    footer .nav-btn span{
+        font-size:11px;
+    }
+
+    footer .nav-btn.active{
+        background:transparent;
+    }
+
+    footer .nav-btn.active i,
+    footer .nav-btn.active span{
+        color:#fff;
+    }
+
+    footer .nav-btn.active::after{
+        content:"";
+        position:absolute;
+        bottom:8px;
+        width:24px;
+        height:3px;
+        background:#fff;
+        border-radius:999px;
+    }
 
 }
 
 
-nav{
-
-display:grid;
-
-grid-template-columns:1fr 1fr;
-
-gap:15px;
-
-}
-
-.dashboard{
-
-    grid-template-columns:1fr;
-}
-
-#taskList li{
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-
-}
-
-/* tablet */
+/* ==========================================
+   TABLET
+========================================== */
 
 @media (min-width:768px) and (max-width:1023px){
 
-.dashboard{
+    /* Dashboard */
 
-gap:16px;
+    .dashboard{
+        display:grid;
+        grid-template-columns:1fr 1fr;
+        gap:20px;
+    }
+
+    .quick-card{
+        grid-column:1/-1;
+    }
+
+    /* Space for sticky footer */
+
+   
+    /* Sticky Footer */
+
+    footer{
+        position:fixed;
+        left:0;
+        bottom:0;
+        width:100%;
+        z-index:1000;
+    }
+
+    footer nav{
+        display:flex;
+        justify-content:space-around;
+        align-items:center;
+
+        width:100%;
+        height:72px;
+
+        margin:0;
+        padding:0;
+
+        background:var(--primary);
+
+        box-shadow:0 -3px 12px rgba(0,0,0,.18);
+    }
+
+    footer .nav-btn{
+
+        flex:1;
+
+        height:100%;
+
+        display:flex;
+        flex-direction:column;
+        justify-content:center;
+        align-items:center;
+
+        gap:4px;
+
+        padding:0;
+
+        border:none;
+        border-radius:0;
+
+        background:transparent;
+        box-shadow:none;
+
+        position:relative;
+    }
+
+    footer .nav-btn i,
+    footer .nav-btn span{
+        color:rgba(255,255,255,.75);
+    }
+
+    footer .nav-btn i{
+        font-size:22px;
+    }
+
+    footer .nav-btn span{
+        font-size:11px;
+    }
+
+    footer .nav-btn.active{
+        background:transparent;
+    }
+
+    footer .nav-btn.active i,
+    footer .nav-btn.active span{
+        color:#fff;
+    }
+
+    footer .nav-btn.active::after{
+        content:"";
+        position:absolute;
+        bottom:8px;
+        width:24px;
+        height:3px;
+        background:#fff;
+        border-radius:999px;
+    }
 
 }
-}
 
 
-/* desktop*/
+/* ==========================================
+   DESKTOP
+========================================== */
+
 @media (min-width:1024px){
 
-#app{
+    .dashboard{
+        display:grid;
+        grid-template-columns:repeat(3,1fr);
+        gap:20px;
+    }
 
-max-width:1200px;
 
+footer{
+    padding: 20px;
 }
-
-
 
 }
