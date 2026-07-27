@@ -1,8 +1,8 @@
-import { initTodo, loadTasks } from "./todo.js";
-import { getTasks } from "./todo.js";
-import { saveData, loadData } from "./storage.js";
-import {initHomeInfo} from "./homeinfo.js";
-import { initEmergency } from "./emergency.js";
+import { initTodo, loadTasks } from "./pages/todo.js";
+import { getTasks } from "./pages/todo.js";
+import { saveData, loadData } from "./services/storage.js";
+import {initHomeInfo} from "./pages/homeinfo.js";
+import { initEmergency } from "./pages/emergency.js";
 import { renderWeatherCard, initWeather } from "./weather.js";
 import { setActiveNav } from "./navigation.js";
 

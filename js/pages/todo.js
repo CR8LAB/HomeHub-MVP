@@ -1,4 +1,4 @@
-import { saveData, loadData } from "./storage.js";
+import { saveData, loadData } from "../services/storage.js";
 
 const tasks = [];
 

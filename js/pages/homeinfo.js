@@ -1,5 +1,5 @@
-import { saveData, loadData, removeData } from "./storage.js";
-import { setupSectionToggles } from "./accordion.js";
+import { saveData, loadData, removeData } from "../services/storage.js";
+import { setupSectionToggles } from "../accordion.js";
 
 const STORAGE_KEY ="homeInfo";
 
