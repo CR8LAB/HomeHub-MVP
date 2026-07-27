@@ -2,7 +2,8 @@ import { initTodo, loadTasks } from "./todo.js";
 import { getTasks } from "./todo.js";
 import { saveData, loadData } from "./storage.js";
 import {initHomeInfo} from "./homeinfo.js";
-
+import { initEmergency } from "./emergency.js";
+import { renderWeatherCard, initWeather } from "./weather.js";
 
 /* DOM references*/
 const appContent = document.getElementById("app-content");
@@ -24,24 +25,17 @@ function renderHomePage() {
     appContent.innerHTML = `
         <section class="dashboard">
 
-            <div class="card weather-card">
+           <div class="card weather-card">
 
-                <h3>Weather</h3>
+    <div id="weatherCard"></div>
 
-                <i class="bi bi-cloud-sun-fill"></i>
-
-                <p>22°C</p>
-
-                <p>Partly Cloudy</p>
-
-            </div>
+</div>
 
             <div class="card summary-card">
 
                 <div class="card-header">
 
                     <h3>Today's Tasks</h3>
-
 
                 </div>
 
@@ -51,39 +45,20 @@ function renderHomePage() {
 
             </div>
 
-            <div class="card quick-card">
+            
+           <div class="card quick-card">
 
-                <h3>Quick Access</h3>
+    <h3>🚨 Quick Access</h3>
 
-                <div class="quick-item">
+    <div id="quick-access-list"></div>
 
-                    <i class="bi bi-shield-fill-exclamation"></i>
-
-                    <span>Emergency</span>
-
-                </div>
-
-                <div class="quick-item">
-
-                    <i class="bi bi-house-heart-fill"></i>
-
-                    <span>Home Info</span>
-
-                </div>
-
-                <div class="quick-item">
-
-                    <i class="bi bi-card-checklist"></i>
-
-                    <span>To-Do</span>
-
-                </div>
-
-            </div>
+</div>
 
         </section>
     `;
     renderTodoPreview();
+renderQuickAccess();
+renderWeatherCard(renderWeatherPage);
 }
 
 
@@ -108,7 +83,23 @@ function renderToDo() {
     initTodo();
 }
 
+function renderWeatherPage() {
 
+    appContent.innerHTML = `
+        <div class="page-header">
+
+            <h2>☀️ Weather</h2>
+
+            <p>Current weather and forecast</p>
+
+        </div>
+
+        <div id="weather-content"></div>
+    `;
+
+    initWeather();
+
+}
 
 function renderHomeInfo() {
 
@@ -326,35 +317,255 @@ function renderHomeInfo() {
 
 }
 
-function renderEmergencyPage(){
-    
-appContent.innerHTML = `
+
+function renderEmergencyInfo() {
+
+    appContent.innerHTML = `
+
+    <div class="page-header">
+
+        <h2>🚑 Emergency Contacts</h2>
+
+        <p>
+            Keep important emergency and household contacts in one place.
+        </p>
+
+    </div>
+
+    <!-- ================= EMERGENCY SERVICES ================= -->
+
+    <div class="section">
+
+        <h3>🚨 Emergency Services</h3>
+
+        <div class="form-group">
+
+            <label for="policePhone">
+                Police Number
+            </label>
+
+            <input
+                type="tel"
+                id="policePhone"
+                placeholder="e.g. 10111"
+            >
+
+        </div>
+
+        <div class="form-group">
+
+            <label for="ambulancePhone">
+                Ambulance Number
+            </label>
+
+            <input
+                type="tel"
+                id="ambulancePhone"
+                placeholder="e.g. 10177"
+            >
+
+        </div>
+
+        <div class="form-group">
+
+            <label for="firePhone">
+                Fire Department Number
+            </label>
+
+            <input
+                type="tel"
+                id="firePhone"
+                placeholder="Fire Department Number"
+            >
+
+        </div>
+
+    </div>
+
+    <!-- ================= SECURITY ================= -->
+
+    <div class="section">
+
+        <h3>🛡 Security</h3>
+
+        <div class="form-group">
+
+            <label for="securityCompany">
+                Security Company
+            </label>
+
+            <input
+                type="text"
+                id="securityCompany"
+                placeholder="Company Name"
+            >
+
+        </div>
+
+        <div class="form-group">
+
+            <label for="securityPhone">
+                Security Contact Number
+            </label>
+
+            <input
+                type="tel"
+                id="securityPhone"
+                placeholder="Security Contact Number"
+            >
+
+        </div>
+
+    </div>
+
+    <!-- ================= FAMILY & MEDICAL ================= -->
+
+    <div class="section">
+
+        <h3>👨‍👩‍👧 Family & Medical</h3>
+
+        <div class="form-group">
+
+            <label for="familyName">
+                Primary Family Contact
+            </label>
+
+            <input
+                type="text"
+                id="familyName"
+                placeholder="Full Name"
+            >
+
+        </div>
+
+        <div class="form-group">
+
+            <label for="familyPhone">
+                Primary Contact Number
+            </label>
+
+            <input
+                type="tel"
+                id="familyPhone"
+                placeholder="Phone Number"
+            >
+
+        </div>
+
+        <div class="form-group">
+
+            <label for="doctorName">
+                Family Doctor
+            </label>
+
+            <input
+                type="text"
+                id="doctorName"
+                placeholder="Doctor Name"
+            >
+
+        </div>
+
+        <div class="form-group">
+
+            <label for="doctorPhone">
+                Doctor Contact Number
+            </label>
+
+            <input
+                type="tel"
+                id="doctorPhone"
+                placeholder="Doctor Contact Number"
+            >
+
+        </div>
+
+    </div>
+
+    <!-- ================= SAVE BUTTON ================= -->
+
+    <div class="homeinfo-actions">
+
+        <button id="saveEmergencyBtn">
+
+            Save Information
+
+        </button>
+
+    </div>
+
+    `;
+
+    initEmergency();
+
+}
 
 
+function renderQuickAccess() {
 
-`
+    const container = document.getElementById("quick-access-list");
+
+    const emergency = loadData("emergencyInfo") || {};
+
+    const contacts = [
+        {
+            icon: "🚓",
+            name: "Police",
+            phone: emergency.policePhone
+        },
+        {
+            icon: "🚑",
+            name: "Ambulance",
+            phone: emergency.ambulancePhone
+        },
+        {
+            icon: "🚒",
+            name: "Fire",
+            phone: emergency.firePhone
+        },
+        {
+            icon: "🛡",
+            name: "Security",
+            phone: emergency.securityPhone
+        }
+    ];
+
+    container.innerHTML = "";
+
+    contacts.forEach(contact => {
+
+        const item = document.createElement("div");
+        item.className = "quick-item";
+
+        if (contact.phone) {
+
+            item.innerHTML = `
+                <span>${contact.icon} ${contact.name}</span>
+               <button class="call-btn">
+    <i class="bi bi-telephone-fill"></i>
+</button>
+            `;
+
+            item.querySelector(".call-btn").addEventListener("click", () => {
+                window.location.href = `tel:${contact.phone}`;
+            });
+
+        } else {
+
+            item.innerHTML = `
+                <span>${contact.icon} ${contact.name}</span>
+                <small>Not set</small>
+            `;
+
+        }
+
+        container.appendChild(item);
+
+    });
+
+}
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-};
 
 //Preview card  
 function renderTodoPreview(){
@@ -445,7 +656,7 @@ homeBtn.addEventListener("click",renderHomePage);
 
 homeInfoBtn.addEventListener("click",renderHomeInfo);
 
-emergencyBtn.addEventListener("click",renderEmergencyPage);
+emergencyBtn.addEventListener("click",renderEmergencyInfo);
 
 
 
