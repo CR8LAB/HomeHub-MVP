@@ -1,5 +1,5 @@
 import { saveData, loadData, removeData } from "../services/storage.js";
-import { setupSectionToggles } from "../accordion.js";
+import { setupSectionToggles } from "../utils/accordion.js";
 
 const STORAGE_KEY = "emergencyInfo";
 

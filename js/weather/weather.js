@@ -1,4 +1,4 @@
-import { getCurrentWeather } from "./weatherService.js";
+import { getCurrentWeather } from "../services/weatherService.js";
 
 /* ============================
    Load Weather Page Data

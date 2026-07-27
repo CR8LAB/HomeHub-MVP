@@ -3,8 +3,8 @@ import { getTasks } from "./pages/todo.js";
 import { saveData, loadData } from "./services/storage.js";
 import {initHomeInfo} from "./pages/homeinfo.js";
 import { initEmergency } from "./pages/emergency.js";
-import { renderWeatherCard, initWeather } from "./weather.js";
-import { setActiveNav } from "./navigation.js";
+import { renderWeatherCard, initWeather } from "./weather/weather.js";
+import { setActiveNav } from "./components/navigation.js";
 
 /* DOM references*/
 const appContent = document.getElementById("app-content");
