@@ -8,42 +8,70 @@ datasource db {
 }
 
 model User {
-  id           Int      @id @default(autoincrement())
-  email        String   @unique
-  passwordHash String
-  firstName    String
-  lastName     String
-  createdAt    DateTime @default(now())
+  id            Int      @id @default(autoincrement())
+  firstName     String
+  lastName      String
+  email         String?  @unique
+  phoneNumber   String?
+  passwordHash  String?
+  isVerified    Boolean  @default(false)
+  isActive      Boolean  @default(true)
 
-  households   HouseholdMember[]
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  households    HouseholdMember[]
 }
+
+
 
 model Household {
-  id          Int      @id @default(autoincrement())
-  familyName  String
-  city        String
-  createdAt   DateTime @default(now())
+  id            Int      @id @default(autoincrement())
 
-  members     HouseholdMember[]
+  familyName    String
+  city          String
+
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  members        HouseholdMember[]
+  activationCode ActivationCode?
 }
 
+
 model HouseholdMember {
-  id           Int       @id @default(autoincrement())
+  id           Int      @id @default(autoincrement())
 
   userId       Int
   householdId  Int
 
-  role         Role      @default(MEMBER)
+  role         Role     @default(MEMBER)
 
-  joinedAt     DateTime  @default(now())
+  joinedAt     DateTime @default(now())
 
-  user          User       @relation(fields: [userId], references: [id])
-  household     Household  @relation(fields: [householdId], references: [id])
+  user         User      @relation(fields: [userId], references: [id])
+  household    Household @relation(fields: [householdId], references: [id])
 
   @@unique([userId, householdId])
 }
 
+
 enum Role {
   OWNER
   MEMBER
+}
+
+model ActivationCode {
+  id            Int      @id @default(autoincrement())
+
+  code          String   @unique
+
+  householdId   Int?     @unique
+
+  isClaimed     Boolean  @default(false)
+  isEnabled     Boolean  @default(true)
+
+  createdAt     DateTime @default(now())
+
+  household      Household? @relation(fields: [householdId], references: [id])
 }
