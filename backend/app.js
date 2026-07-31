@@ -1,7 +1,10 @@
 import express from "express";
+import onboardingRoutes from "./routes/onboarding.routes.js";
 
 const app = express();
 
 app.use(express.json());
 
-export default app ;
+app.use("/api/onboarding", onboardingRoutes);
+
+export default app;

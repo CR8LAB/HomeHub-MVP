@@ -1,14 +1,7 @@
 import app from "./app.js";
 
+const PORT = process.env.PORT || 3000;
 
-const PORT  = 3000 ;
-
-app.get("/", (req, res) => {
-    res.json({
-        status: "HomeHub API Running"
-    });
-});
-
-app.listen(PORT, ()=>{
-    console.log(`server running on $(PORT)`)
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
 });
