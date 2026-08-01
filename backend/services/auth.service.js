@@ -80,3 +80,59 @@ export async function loginService({ email, password }) {
         }
     };
 }
+export async function getCurrentUserService(
+    userId,
+    householdId
+) {
+    const user = await prisma.user.findUnique({
+        where: {
+            id: Number(userId)
+        },
+
+        include: {
+            households: {
+                where: {
+                    householdId: Number(householdId)
+                },
+
+                include: {
+                    household: true
+                }
+            }
+        }
+    });
+
+    if (!user || !user.isActive) {
+        return {
+            success: false,
+            message: "User not found."
+        };
+    }
+
+    const membership = user.households[0];
+
+    if (!membership) {
+        return {
+            success: false,
+            message: "Household membership not found."
+        };
+    }
+
+    return {
+        success: true,
+
+        user: {
+            id: user.id,
+            firstName: user.firstName,
+            lastName: user.lastName,
+            email: user.email,
+            phoneNumber: user.phoneNumber,
+
+            householdId: membership.householdId,
+            householdName: membership.household.familyName,
+            city: membership.household.city,
+
+            role: membership.role
+        }
+    };
+}
