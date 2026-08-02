@@ -8,53 +8,50 @@ datasource db {
 }
 
 model User {
-  id            Int      @id @default(autoincrement())
-  firstName     String
-  lastName      String
-  email         String?  @unique
-  phoneNumber   String?
-  passwordHash  String?
-  isVerified    Boolean  @default(false)
-  isActive      Boolean  @default(true)
+  id           Int     @id @default(autoincrement())
+  firstName    String
+  lastName     String
+  email        String? @unique
+  phoneNumber  String?
+  passwordHash String?
+  isVerified   Boolean @default(false)
+  isActive     Boolean @default(true)
 
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
-  households    HouseholdMember[]
+  households HouseholdMember[]
 }
 
-
-
 model Household {
-  id            Int      @id @default(autoincrement())
+  id Int @id @default(autoincrement())
 
-  familyName    String
-  city          String
+  familyName String
+  city       String
 
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   members        HouseholdMember[]
   activationCode ActivationCode?
+  homeInfo       HomeInfo?
 }
 
-
 model HouseholdMember {
-  id           Int      @id @default(autoincrement())
+  id Int @id @default(autoincrement())
 
-  userId       Int
-  householdId  Int
+  userId      Int
+  householdId Int
 
-  role         Role     @default(MEMBER)
+  role Role @default(MEMBER)
 
-  joinedAt     DateTime @default(now())
+  joinedAt DateTime @default(now())
 
-  user         User      @relation(fields: [userId], references: [id])
-  household    Household @relation(fields: [householdId], references: [id])
+  user      User      @relation(fields: [userId], references: [id])
+  household Household @relation(fields: [householdId], references: [id])
 
   @@unique([userId, householdId])
 }
-
 
 enum Role {
   OWNER
@@ -62,16 +59,32 @@ enum Role {
 }
 
 model ActivationCode {
-  id            Int      @id @default(autoincrement())
+  id Int @id @default(autoincrement())
 
-  code          String   @unique
+  code String @unique
 
-  householdId   Int?     @unique
+  householdId Int? @unique
 
-  isClaimed     Boolean  @default(false)
-  isEnabled     Boolean  @default(true)
+  isClaimed Boolean @default(false)
+  isEnabled Boolean @default(true)
 
-  createdAt     DateTime @default(now())
+  createdAt DateTime @default(now())
 
-  household      Household? @relation(fields: [householdId], references: [id])
+  household Household? @relation(fields: [householdId], references: [id])
+}
+
+model HomeInfo {
+  id          Int @id @default(autoincrement())
+  householdId Int @unique
+
+  wifiName     String?
+  wifiPassword String?
+  alarmCode    String?
+  gateCode     String?
+  notes        String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  household Household @relation(fields: [householdId], references: [id], onDelete: Cascade)
 }
