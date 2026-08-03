@@ -5,8 +5,15 @@ import homeInfoRoutes from "./routes/homeInfo.routes.js";
 import emergencyRoutes from "./routes/emergency.routes.js";
 import todoRoutes from "./routes/todo.routes.js";
 import dashboardRoutes from "./routes/dashboard.routes.js";
-
+import cors from "cors";
 const app = express();
+
+
+
+app.use(cors({
+    origin: true,
+    credentials: true
+}));
 
 app.use(express.json());
 

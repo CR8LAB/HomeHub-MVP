@@ -1,5 +1,3 @@
-import { loadTasks } from "./pages/todoPage.js";
-
 import { renderHomePage } from "./pages/dashboardPage.js";
 import { renderToDo } from "./pages/todoPage.js";
 import { renderHomeInfoPage } from "./pages/homeInfoPage.js";
@@ -16,8 +14,10 @@ homeBtn.addEventListener("click", renderHomePage);
 homeInfoBtn.addEventListener("click", renderHomeInfoPage);
 emergencyBtn.addEventListener("click", renderEmergencyInfo);
 
+const token = localStorage.getItem("homehubToken");
 
-renderOnboardingPage();
-
-// loadTasks();
-// renderHomePage();
+if (token) {
+    renderHomePage();
+} else {
+    renderOnboardingPage();
+}

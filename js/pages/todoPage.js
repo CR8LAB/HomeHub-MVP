@@ -1,99 +1,107 @@
-import { saveData, loadData } from "../services/storage.js";
+import { apiRequest } from "../services/api.js";
 import { setActiveNav } from "../components/navigation.js";
-
-
 
 const tasks = [];
 const appContent = document.getElementById("app-content");
 
-//input elements
-export function initTodo() {
-
+export async function initTodo() {
     const taskInput = document.getElementById("taskName");
     const saveBtn = document.getElementById("saveBtn");
 
-    loadTasks();
+    await fetchTodos();
 
-    renderTasks();   // <-- render ONLY on the Todo page
+    saveBtn.addEventListener("click", async () => {
+        const title = taskInput.value.trim();
 
-    saveBtn.addEventListener("click", () => {
-
-        if (taskInput.value.trim() === "") {
+        if (!title) {
             return;
         }
 
-        addTask(taskInput.value);
+        try {
+            await apiRequest("/todos", {
+                method: "POST",
+                body: JSON.stringify({
+                    title
+                })
+            });
 
-        taskInput.value = "";
+            taskInput.value = "";
 
+            await fetchTodos();
+        } catch (error) {
+            console.error("Create todo failed:", error.message);
+        }
     });
-
 }
 
+async function fetchTodos() {
+    try {
+        const result = await apiRequest("/todos");
 
-//only creates the object
-function createTask(taskName){
-return{
-task:taskName,
-completed:false
+        tasks.length = 0;
 
-};
+        result.todos.forEach((todo) => {
+            tasks.push(todo);
+        });
 
+        renderTasks();
+    } catch (error) {
+        console.error("Load todos failed:", error.message);
+    }
 }
 
-//adds only the object to array
-function addTask(taskName){
-tasks.push(createTask(taskName));
-
- saveTasks();
-
-renderTasks()
-
-
-}
-
-
-function createTaskElement(task, index) {
-
-    // Create list item
+function createTaskElement(task) {
     const li = document.createElement("li");
 
-    // Create checkbox
     const completeCheck = document.createElement("input");
     completeCheck.type = "checkbox";
     completeCheck.checked = task.completed;
     completeCheck.classList.add("completeCheck");
 
-    completeCheck.addEventListener("change", () => {
-        task.completed = completeCheck.checked;
+    completeCheck.addEventListener("change", async () => {
+        try {
+            await apiRequest(`/todos/${task.id}/complete`, {
+                method: "PATCH"
+            });
 
-        saveTasks();
-        renderTasks();
+            await fetchTodos();
+        } catch (error) {
+            console.error("Complete todo failed:", error.message);
+
+            completeCheck.checked = task.completed;
+        }
     });
 
-    // Create task name
     const taskName = document.createElement("span");
-    taskName.textContent = task.task;
+    taskName.textContent = task.title;
     taskName.classList.add("task-name");
 
-    // Create Clear button
+    if (task.completed) {
+        taskName.classList.add("completed");
+    }
+
     const clearBtn = document.createElement("button");
     clearBtn.textContent = "Clear";
     clearBtn.classList.add("clear-btn");
 
-    clearBtn.addEventListener("click", () => {
-        clearTask(index);
+    clearBtn.addEventListener("click", async () => {
+        try {
+            await apiRequest(`/todos/${task.id}`, {
+                method: "DELETE"
+            });
+
+            await fetchTodos();
+        } catch (error) {
+            console.error("Delete todo failed:", error.message);
+        }
     });
 
-    // Add elements in the correct order
     li.appendChild(completeCheck);
     li.appendChild(taskName);
     li.appendChild(clearBtn);
 
     return li;
 }
-
-
 
 function renderTasks() {
     const taskList = document.getElementById("taskList");
@@ -104,73 +112,36 @@ function renderTasks() {
 
     taskList.innerHTML = "";
 
-    tasks.forEach((task, index) => {
-        const li = createTaskElement(task, index);
+    if (tasks.length === 0) {
+        taskList.innerHTML = `
+            <li class="empty-todo-message">
+                No tasks yet.
+            </li>
+        `;
+
+        return;
+    }
+
+    tasks.forEach((task) => {
+        const li = createTaskElement(task);
         taskList.appendChild(li);
     });
 }
 
-// clear task //
-
-
-
-function clearTask(index){
-
-tasks.splice(index,1);
-
- saveTasks();
-
-renderTasks()
-
+export function getTasks() {
+    return tasks;
 }
 
-//save tasks in localStorage //
-
-function saveTasks() {
-    saveData("tasks", tasks);
-}
-
-// load from local storage
-
-export function loadTasks() {
-
-    const loadedTasks = loadData("tasks");
-
-    tasks.length = 0;
-
-    if (loadedTasks === null) {
-        return;
-    }
-
-    loadedTasks.forEach(task => {
-        tasks.push(task);
-    });
-
-}
-
-function completeTask(index){
-
-    tasks[index].completed = true;
-
-    saveTasks(); // after updating always save and render again
-
-    renderTasks();
-
-};
-
-export function getTasks(){
-   
-return tasks
-
-};
-
-export function renderToDo() {
+export async function renderToDo() {
     appContent.innerHTML = `
         <section class="todo-page">
             <div class="card">
                 <h2>To Do List</h2>
 
-                <input id="taskName" placeholder="Enter a task">
+                <input
+                    id="taskName"
+                    placeholder="Enter a task"
+                >
 
                 <button id="saveBtn">
                     Add Task
@@ -181,6 +152,7 @@ export function renderToDo() {
         </section>
     `;
 
-    initTodo();
     setActiveNav("todo-btn");
+
+    await initTodo();
 }
