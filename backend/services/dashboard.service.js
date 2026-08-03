@@ -48,11 +48,7 @@ export async function getDashboardService(householdId) {
         prisma.emergencyContact.findMany({
             where: {
                 householdId: id
-            },
-            orderBy: {
-                name: "asc"
-            },
-            take: 3
+            }
         }),
 
         prisma.homeInfo.findUnique({
@@ -73,8 +69,25 @@ export async function getDashboardService(householdId) {
         };
     }
 
+    const police = emergencyContacts.find(
+        contact => contact.type === "POLICE"
+    );
+
+    const ambulance = emergencyContacts.find(
+        contact => contact.type === "AMBULANCE"
+    );
+
+    const fire = emergencyContacts.find(
+        contact => contact.type === "FIRE"
+    );
+
+    const security = emergencyContacts.find(
+        contact => contact.type === "SECURITY"
+    );
+
     return {
         success: true,
+
         dashboard: {
             household,
 
@@ -85,7 +98,12 @@ export async function getDashboardService(householdId) {
                 recent: recentTodos
             },
 
-            emergencyContacts,
+            quickAccess: {
+                police: police?.phone ?? "",
+                ambulance: ambulance?.phone ?? "",
+                fire: fire?.phone ?? "",
+                security: security?.phone ?? ""
+            },
 
             homeInfo: {
                 available: Boolean(homeInfo),

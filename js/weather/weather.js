@@ -1,80 +1,189 @@
 import { getCurrentWeather } from "../services/weatherService.js";
 
 /* ============================
-   Load Weather Page Data
+   Load Full Weather Page
 ============================ */
 
 export async function initWeather() {
+    try {
+        const weather = await getCurrentWeather();
 
-    const weather = await getCurrentWeather();
-
-    displayWeather(weather);
-
+        displayWeather(weather);
+    } catch (error) {
+        console.error(
+            "Weather page failed:",
+            error.message
+        );
+    }
 }
 
 /* ============================
-   Render Weather Page
+   Choose Weather Theme
+============================ */
+
+function getWeatherTheme(main = "") {
+    switch (main) {
+        case "Clear":
+            return "weather-clear";
+
+        case "Clouds":
+            return "weather-cloud";
+
+        case "Rain":
+        case "Drizzle":
+            return "weather-rain";
+
+        case "Thunderstorm":
+            return "weather-storm";
+
+        case "Snow":
+            return "weather-snow";
+
+        case "Mist":
+        case "Fog":
+        case "Haze":
+        case "Smoke":
+            return "weather-mist";
+
+        default:
+            return "weather-default";
+    }
+}
+
+/* ============================
+   Render Full Weather Page
 ============================ */
 
 function displayWeather(weather) {
+    const container =
+        document.getElementById("weather-content");
 
-    const container = document.getElementById("weather-content");
+    if (!container) {
+        return;
+    }
 
-    if (!container) return;
+    const weatherTheme =
+        getWeatherTheme(weather.main);
+
+    const weatherIcon = weather.icon
+        ? `
+            <img
+                src="https://openweathermap.org/img/wn/${weather.icon}@2x.png"
+                alt="${weather.description}"
+            >
+        `
+        : "";
 
     container.innerHTML = `
-        <div class="weather-card">
-
- <img
-        src="https://openweathermap.org/img/wn/${weather.icon}@2x.png"
-        alt="${weather.description}"
-    >
+        <div class="weather-card ${weatherTheme}">
+            ${weatherIcon}
 
             <h3>${weather.city}</h3>
 
             <h1>${weather.temperature}°C</h1>
 
             <p>${weather.description}</p>
-
         </div>
     `;
-
 }
 
 /* ============================
-   Render Dashboard Card
+   Render Dashboard Weather Card
 ============================ */
 
-export async function renderWeatherCard(openWeatherPage) {
+export async function renderWeatherCard(
+    openWeatherPage
+) {
+    const container =
+        document.getElementById("weatherCard");
 
-    const weather = await getCurrentWeather();
-
-    const container = document.getElementById("weatherCard");
-
-    if (!container) return;
+    if (!container) {
+        return;
+    }
 
     container.innerHTML = `
-
-    <img
-    src="https://openweathermap.org/img/wn/${weather.icon}.png"
-    alt="${weather.description}"
->
-
-        <h3>☀️ Weather</h3>
-
-        <h2>${weather.temperature}°C</h2>
-
-        <p>${weather.description}</p>
-
-        <small>${weather.city}</small>
-
-       <div id="forecastBtn" class="forecast-link">
-    View 5-Day Forecast →
-</div>
+        <p class="weather-loading">
+            Loading weather...
+        </p>
     `;
 
-    document
-        .getElementById("forecastBtn")
-        .addEventListener("click", openWeatherPage);
+    try {
+        const weather = await getCurrentWeather();
 
+        const weatherTheme =
+            getWeatherTheme(weather.main);
+
+        /*
+         Remove previous condition classes and apply
+         the current weather theme.
+        */
+        container.classList.remove(
+            "weather-clear",
+            "weather-cloud",
+            "weather-rain",
+            "weather-storm",
+            "weather-snow",
+            "weather-mist",
+            "weather-default"
+        );
+
+        container.classList.add(
+            "weather-card",
+            weatherTheme
+        );
+
+        const weatherIcon = weather.icon
+            ? `
+                <img
+                    src="https://openweathermap.org/img/wn/${weather.icon}.png"
+                    alt="${weather.description}"
+                >
+            `
+            : "";
+
+        container.innerHTML = `
+            ${weatherIcon}
+
+            <h3>Weather</h3>
+
+            <h2>${weather.temperature}°C</h2>
+
+            <p>${weather.description}</p>
+
+            <small>${weather.city}</small>
+
+            <button
+                id="forecastBtn"
+                class="forecast-link"
+                type="button"
+            >
+                View 5-Day Forecast →
+            </button>
+        `;
+
+        const forecastButton =
+            document.getElementById("forecastBtn");
+
+        forecastButton.addEventListener(
+            "click",
+            openWeatherPage
+        );
+
+    } catch (error) {
+        console.error(
+            "Dashboard weather failed:",
+            error.message
+        );
+
+        container.className =
+            "weather-card weather-default";
+
+        container.innerHTML = `
+            <h3>Weather</h3>
+
+            <p>
+                Weather information is unavailable.
+            </p>
+        `;
+    }
 }

@@ -77,11 +77,27 @@ model HomeInfo {
   id          Int @id @default(autoincrement())
   householdId Int @unique
 
+  nickname            String?
+  address             String?
+  municipalityAccount String?
+
+  electricityMeter String?
+  waterMeter       String?
+  electricityBox   String?
+
+  municipalityPhone String?
+  electricityFaults String?
+  waterFaults       String?
+  refuseDay         String?
+
+  securityCompany String?
+  securityPhone   String?
+  alarmCompany    String?
+  alarmPhone      String?
+
+  gateCode     String?
   wifiName     String?
   wifiPassword String?
-  alarmCode    String?
-  gateCode     String?
-  notes        String?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

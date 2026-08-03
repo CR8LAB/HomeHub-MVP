@@ -13,7 +13,7 @@ export async function renderHomePage() {
         const dashboardData = result.dashboard;
 
         appContent.innerHTML = `
-            <section class="dashboard">
+            <section class="dashboard ">
 
                 <div class="card weather-card">
                     <div id="weatherCard"></div>
@@ -38,7 +38,9 @@ export async function renderHomePage() {
         renderTodoPreview(dashboardData.todoSummary);
 
         // Leave these as they are for now.
-        renderQuickAccess();
+       renderQuickAccess(
+    dashboardData.quickAccess
+);
         renderWeatherCard(renderWeatherPage);
         setActiveNav("home-btn");
 

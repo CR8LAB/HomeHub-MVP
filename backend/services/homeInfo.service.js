@@ -26,33 +26,67 @@ export async function updateHomeInfoService(
     homeInfoData
 ) {
     const {
-        wifiName,
-        wifiPassword,
-        alarmCode,
+        nickname,
+        address,
+        municipalityAccount,
+        electricityMeter,
+        waterMeter,
+        electricityBox,
+        municipalityPhone,
+        electricityFaults,
+        waterFaults,
+        refuseDay,
+        securityCompany,
+        securityPhone,
+        alarmCompany,
+        alarmPhone,
         gateCode,
-        notes
+        wifiName,
+        wifiPassword
     } = homeInfoData;
 
     const homeInfo = await prisma.homeInfo.upsert({
         where: {
             householdId: Number(householdId)
         },
-
         update: {
-            wifiName,
-            wifiPassword,
-            alarmCode,
+            nickname,
+            address,
+            municipalityAccount,
+            electricityMeter,
+            waterMeter,
+            electricityBox,
+            municipalityPhone,
+            electricityFaults,
+            waterFaults,
+            refuseDay,
+            securityCompany,
+            securityPhone,
+            alarmCompany,
+            alarmPhone,
             gateCode,
-            notes
+            wifiName,
+            wifiPassword
         },
-
         create: {
             householdId: Number(householdId),
-            wifiName,
-            wifiPassword,
-            alarmCode,
+            nickname,
+            address,
+            municipalityAccount,
+            electricityMeter,
+            waterMeter,
+            electricityBox,
+            municipalityPhone,
+            electricityFaults,
+            waterFaults,
+            refuseDay,
+            securityCompany,
+            securityPhone,
+            alarmCompany,
+            alarmPhone,
             gateCode,
-            notes
+            wifiName,
+            wifiPassword
         }
     });
 

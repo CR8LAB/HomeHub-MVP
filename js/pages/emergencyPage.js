@@ -1,300 +1,542 @@
-import { saveData, loadData, removeData } from "../services/storage.js";
+import { apiRequest } from "../services/api.js";
 import { setupSectionToggles } from "../utils/accordion.js";
 import { setActiveNav } from "../components/navigation.js";
 
 const appContent = document.getElementById("app-content");
 
-const STORAGE_KEY = "emergencyInfo";
+let emergencyContacts = [];
 
-const emergencyInfo = {
+/* =========================================================
+   INITIALISE PAGE
+========================================================= */
 
-    policePhone: "",
-
-    ambulancePhone: "",
-
-    firePhone: "",
-
-    securityCompany: "",
-    securityPhone: "",
-
-    doctorName: "",
-    doctorPhone: "",
-
-    familyName: "",
-    familyPhone: ""
-
-};
-
-export function initEmergency(){
-
+export async function initEmergency() {
     setupSectionToggles();
 
-    loadEmergencyInfo();
+    const saveBtn =
+        document.getElementById("saveEmergencyBtn");
 
-    document
-        .getElementById("saveEmergencyBtn")
-        .addEventListener("click", saveEmergencyInfo);
+    saveBtn.addEventListener(
+        "click",
+        saveEmergencyInfo
+    );
 
+    await loadEmergencyInfo();
 }
 
-
+/* =========================================================
+   READ FORM VALUES
+========================================================= */
 
 function getEmergencyInfo() {
-
     return {
-
         policePhone:
-            document.getElementById("policePhone").value,
+            document
+                .getElementById("policePhone")
+                .value
+                .trim(),
 
         ambulancePhone:
-            document.getElementById("ambulancePhone").value,
+            document
+                .getElementById("ambulancePhone")
+                .value
+                .trim(),
 
         firePhone:
-            document.getElementById("firePhone").value,
+            document
+                .getElementById("firePhone")
+                .value
+                .trim(),
 
         securityCompany:
-            document.getElementById("securityCompany").value,
+            document
+                .getElementById("securityCompany")
+                .value
+                .trim(),
 
         securityPhone:
-            document.getElementById("securityPhone").value,
+            document
+                .getElementById("securityPhone")
+                .value
+                .trim(),
 
         familyName:
-            document.getElementById("familyName").value,
+            document
+                .getElementById("familyName")
+                .value
+                .trim(),
 
         familyPhone:
-            document.getElementById("familyPhone").value,
+            document
+                .getElementById("familyPhone")
+                .value
+                .trim(),
 
         doctorName:
-            document.getElementById("doctorName").value,
+            document
+                .getElementById("doctorName")
+                .value
+                .trim(),
 
         doctorPhone:
-            document.getElementById("doctorPhone").value
-
+            document
+                .getElementById("doctorPhone")
+                .value
+                .trim()
     };
-
 }
 
-function saveEmergencyInfo() {
+/* =========================================================
+   LOAD CONTACTS FROM BACKEND
+========================================================= */
 
-    const emergencyInfo = getEmergencyInfo();
+async function loadEmergencyInfo() {
+    try {
+        const result =
+            await apiRequest("/emergency");
 
-    saveData(STORAGE_KEY, emergencyInfo);
+        emergencyContacts =
+            result.contacts ?? [];
 
-};
+        const police =
+            findContactByType("POLICE");
 
-function loadEmergencyInfo() {
+        const ambulance =
+            findContactByType("AMBULANCE");
 
-    const emergency = loadData(STORAGE_KEY);
+        const fire =
+            findContactByType("FIRE");
 
-    if (!emergency) return;
+        const security =
+            findContactByType("SECURITY");
 
-    document.getElementById("policePhone").value =
-        emergency.policePhone || "";
+        const family =
+            findContactByType("FAMILY");
 
-    document.getElementById("ambulancePhone").value =
-        emergency.ambulancePhone || "";
+        const doctor =
+            findContactByType("DOCTOR");
 
-    document.getElementById("firePhone").value =
-        emergency.firePhone || "";
+        setInputValue(
+            "policePhone",
+            police?.phone
+        );
 
-    document.getElementById("securityCompany").value =
-        emergency.securityCompany || "";
+        setInputValue(
+            "ambulancePhone",
+            ambulance?.phone
+        );
 
-    document.getElementById("securityPhone").value =
-        emergency.securityPhone || "";
+        setInputValue(
+            "firePhone",
+            fire?.phone
+        );
 
-    document.getElementById("familyName").value =
-        emergency.familyName || "";
+        setInputValue(
+            "securityCompany",
+            security?.name
+        );
 
-    document.getElementById("familyPhone").value =
-        emergency.familyPhone || "";
+        setInputValue(
+            "securityPhone",
+            security?.phone
+        );
 
-    document.getElementById("doctorName").value =
-        emergency.doctorName || "";
+        setInputValue(
+            "familyName",
+            family?.name
+        );
 
-    document.getElementById("doctorPhone").value =
-        emergency.doctorPhone || "";
+        setInputValue(
+            "familyPhone",
+            family?.phone
+        );
 
-};
+        setInputValue(
+            "doctorName",
+            doctor?.name
+        );
 
-export function renderEmergencyInfo() {
+        setInputValue(
+            "doctorPhone",
+            doctor?.phone
+        );
 
+    } catch (error) {
+        console.error(
+            "Load emergency contacts failed:",
+            error.message
+        );
+    }
+}
+
+/* =========================================================
+   SAVE CONTACTS TO BACKEND
+========================================================= */
+
+async function saveEmergencyInfo() {
+    const saveBtn =
+        document.getElementById("saveEmergencyBtn");
+
+    try {
+        saveBtn.disabled = true;
+        saveBtn.textContent = "Saving...";
+
+        const emergencyInfo =
+            getEmergencyInfo();
+
+        await syncContact({
+            type: "POLICE",
+            name: "Police",
+            phone: emergencyInfo.policePhone,
+            notes: null
+        });
+
+        await syncContact({
+            type: "AMBULANCE",
+            name: "Ambulance",
+            phone: emergencyInfo.ambulancePhone,
+            notes: null
+        });
+
+        await syncContact({
+            type: "FIRE",
+            name: "Fire Department",
+            phone: emergencyInfo.firePhone,
+            notes: null
+        });
+
+        await syncContact({
+            type: "SECURITY",
+
+            name:
+                emergencyInfo.securityCompany ||
+                "Security Company",
+
+            phone:
+                emergencyInfo.securityPhone,
+
+            notes: null
+        });
+
+        await syncContact({
+            type: "FAMILY",
+
+            name:
+                emergencyInfo.familyName ||
+                "Primary Family Contact",
+
+            phone:
+                emergencyInfo.familyPhone,
+
+            notes: null
+        });
+
+        await syncContact({
+            type: "DOCTOR",
+
+            name:
+                emergencyInfo.doctorName ||
+                "Family Doctor",
+
+            phone:
+                emergencyInfo.doctorPhone,
+
+            notes: null
+        });
+
+        await loadEmergencyInfo();
+
+        saveBtn.textContent = "Saved";
+
+        setTimeout(() => {
+            saveBtn.textContent =
+                "Save Information";
+        }, 1200);
+
+    } catch (error) {
+        console.error(
+            "Save emergency contacts failed:",
+            error.message
+        );
+
+        saveBtn.textContent = "Save Failed";
+
+        setTimeout(() => {
+            saveBtn.textContent =
+                "Save Information";
+        }, 1500);
+
+    } finally {
+        saveBtn.disabled = false;
+    }
+}
+
+/* =========================================================
+   CREATE, UPDATE OR DELETE ONE CONTACT
+========================================================= */
+
+async function syncContact({
+    type,
+    name,
+    phone,
+    notes
+}) {
+    const existingContact =
+        findContactByType(type);
+
+    /*
+        If the phone field is empty and the record already
+        exists, remove that contact from the database.
+    */
+    if (!phone) {
+        if (existingContact) {
+            await apiRequest(
+                `/emergency/${existingContact.id}`,
+                {
+                    method: "DELETE"
+                }
+            );
+        }
+
+        return;
+    }
+
+    const contactData = {
+        name,
+        phone,
+        type,
+        notes
+    };
+
+    /*
+        Existing record:
+        update it.
+    */
+    if (existingContact) {
+        await apiRequest(
+            `/emergency/${existingContact.id}`,
+            {
+                method: "PUT",
+                body: JSON.stringify(
+                    contactData
+                )
+            }
+        );
+
+        return;
+    }
+
+    /*
+        No existing record:
+        create it.
+    */
+    await apiRequest("/emergency", {
+        method: "POST",
+        body: JSON.stringify(contactData)
+    });
+}
+
+/* =========================================================
+   HELPERS
+========================================================= */
+
+function findContactByType(type) {
+    return emergencyContacts.find(
+        contact => contact.type === type
+    );
+}
+
+function setInputValue(elementId, value) {
+    const element =
+        document.getElementById(elementId);
+
+    if (!element) {
+        return;
+    }
+
+    element.value = value ?? "";
+}
+
+/* =========================================================
+   RENDER PAGE
+========================================================= */
+
+export async function renderEmergencyInfo() {
     appContent.innerHTML = `
 
-    <div class="page-header">
+        <div class="page-header">
 
-        <h2>🚑 Emergency Contacts</h2>
+            <h2>🚑 Emergency Contacts</h2>
 
-        <p>
-            Keep important emergency and household contacts in one place.
-        </p>
-
-    </div>
-
-    <!-- ================= EMERGENCY SERVICES ================= -->
-
-    <div class="section">
-
-        <h3>🚨 Emergency Services</h3>
-
-        <div class="form-group">
-
-            <label for="policePhone">
-                Police Number
-            </label>
-
-            <input
-                type="tel"
-                id="policePhone"
-                placeholder="e.g. 10111"
-            >
+            <p>
+                Keep important emergency and household
+                contacts in one place.
+            </p>
 
         </div>
 
-        <div class="form-group">
+        <!-- ================= EMERGENCY SERVICES ================= -->
 
-            <label for="ambulancePhone">
-                Ambulance Number
-            </label>
+        <div class="section">
 
-            <input
-                type="tel"
-                id="ambulancePhone"
-                placeholder="e.g. 10177"
-            >
+            <h3>🚨 Emergency Services</h3>
 
-        </div>
+            <div class="form-group">
 
-        <div class="form-group">
+                <label for="policePhone">
+                    Police Number
+                </label>
 
-            <label for="firePhone">
-                Fire Department Number
-            </label>
+                <input
+                    type="tel"
+                    id="policePhone"
+                    placeholder="e.g. 10111"
+                >
 
-            <input
-                type="tel"
-                id="firePhone"
-                placeholder="Fire Department Number"
-            >
+            </div>
 
-        </div>
+            <div class="form-group">
 
-    </div>
+                <label for="ambulancePhone">
+                    Ambulance Number
+                </label>
 
-    <!-- ================= SECURITY ================= -->
+                <input
+                    type="tel"
+                    id="ambulancePhone"
+                    placeholder="e.g. 10177"
+                >
 
-    <div class="section">
+            </div>
 
-        <h3>🛡 Security</h3>
+            <div class="form-group">
 
-        <div class="form-group">
+                <label for="firePhone">
+                    Fire Department Number
+                </label>
 
-            <label for="securityCompany">
-                Security Company
-            </label>
+                <input
+                    type="tel"
+                    id="firePhone"
+                    placeholder="Fire Department Number"
+                >
 
-            <input
-                type="text"
-                id="securityCompany"
-                placeholder="Company Name"
-            >
-
-        </div>
-
-        <div class="form-group">
-
-            <label for="securityPhone">
-                Security Contact Number
-            </label>
-
-            <input
-                type="tel"
-                id="securityPhone"
-                placeholder="Security Contact Number"
-            >
+            </div>
 
         </div>
 
-    </div>
+        <!-- ================= SECURITY ================= -->
 
-    <!-- ================= FAMILY & MEDICAL ================= -->
+        <div class="section">
 
-    <div class="section">
+            <h3>🛡 Security</h3>
 
-        <h3>👨‍👩‍👧 Family & Medical</h3>
+            <div class="form-group">
 
-        <div class="form-group">
+                <label for="securityCompany">
+                    Security Company
+                </label>
 
-            <label for="familyName">
-                Primary Family Contact
-            </label>
+                <input
+                    type="text"
+                    id="securityCompany"
+                    placeholder="Company Name"
+                >
 
-            <input
-                type="text"
-                id="familyName"
-                placeholder="Full Name"
-            >
+            </div>
 
-        </div>
+            <div class="form-group">
 
-        <div class="form-group">
+                <label for="securityPhone">
+                    Security Contact Number
+                </label>
 
-            <label for="familyPhone">
-                Primary Contact Number
-            </label>
+                <input
+                    type="tel"
+                    id="securityPhone"
+                    placeholder="Security Contact Number"
+                >
 
-            <input
-                type="tel"
-                id="familyPhone"
-                placeholder="Phone Number"
-            >
-
-        </div>
-
-        <div class="form-group">
-
-            <label for="doctorName">
-                Family Doctor
-            </label>
-
-            <input
-                type="text"
-                id="doctorName"
-                placeholder="Doctor Name"
-            >
+            </div>
 
         </div>
 
-        <div class="form-group">
+        <!-- ================= FAMILY & MEDICAL ================= -->
 
-            <label for="doctorPhone">
-                Doctor Contact Number
-            </label>
+        <div class="section">
 
-            <input
-                type="tel"
-                id="doctorPhone"
-                placeholder="Doctor Contact Number"
-            >
+            <h3>👨‍👩‍👧 Family & Medical</h3>
+
+            <div class="form-group">
+
+                <label for="familyName">
+                    Primary Family Contact
+                </label>
+
+                <input
+                    type="text"
+                    id="familyName"
+                    placeholder="Full Name"
+                >
+
+            </div>
+
+            <div class="form-group">
+
+                <label for="familyPhone">
+                    Primary Contact Number
+                </label>
+
+                <input
+                    type="tel"
+                    id="familyPhone"
+                    placeholder="Phone Number"
+                >
+
+            </div>
+
+            <div class="form-group">
+
+                <label for="doctorName">
+                    Family Doctor
+                </label>
+
+                <input
+                    type="text"
+                    id="doctorName"
+                    placeholder="Doctor Name"
+                >
+
+            </div>
+
+            <div class="form-group">
+
+                <label for="doctorPhone">
+                    Doctor Contact Number
+                </label>
+
+                <input
+                    type="tel"
+                    id="doctorPhone"
+                    placeholder="Doctor Contact Number"
+                >
+
+            </div>
 
         </div>
 
-    </div>
+        <!-- ================= SAVE BUTTON ================= -->
 
-    <!-- ================= SAVE BUTTON ================= -->
+        <div class="homeinfo-actions">
 
-    <div class="homeinfo-actions">
+            <button id="saveEmergencyBtn">
+                Save Information
+            </button>
 
-        <button id="saveEmergencyBtn">
-
-            Save Information
-
-        </button>
-
-    </div>
-
+        </div>
     `;
 
-    initEmergency();
-setActiveNav("emergency-btn");
+    setActiveNav("emergency-btn");
+
+    await initEmergency();
 }

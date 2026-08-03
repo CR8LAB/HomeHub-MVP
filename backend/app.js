@@ -6,6 +6,8 @@ import emergencyRoutes from "./routes/emergency.routes.js";
 import todoRoutes from "./routes/todo.routes.js";
 import dashboardRoutes from "./routes/dashboard.routes.js";
 import cors from "cors";
+import weatherRoutes from "./routes/weather.routes.js";
+
 const app = express();
 
 
@@ -23,5 +25,5 @@ app.use("/api/home-info", homeInfoRoutes);
 app.use("/api/emergency", emergencyRoutes);
 app.use("/api/todos", todoRoutes);
 app.use("/api/dashboard", dashboardRoutes);
-
+app.use("/api/weather", weatherRoutes);
 export default app;

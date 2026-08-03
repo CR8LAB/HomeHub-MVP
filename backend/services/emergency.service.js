@@ -91,23 +91,25 @@ export async function updateEmergencyContactService(
             id
         },
 
-        data: {
-            ...(name !== undefined && {
-                name: name.trim()
-            }),
+       data: {
+    ...(name !== undefined && {
+        name: String(name).trim()
+    }),
 
-            ...(phone !== undefined && {
-                phone: phone.trim()
-            }),
+    ...(phone !== undefined && {
+        phone: String(phone).trim()
+    }),
 
-            ...(type !== undefined && {
-                type: type.trim().toUpperCase()
-            }),
+    ...(type !== undefined && {
+        type: String(type).trim().toUpperCase()
+    }),
 
-            ...(notes !== undefined && {
-                notes: notes.trim() || null
-            })
-        }
+    ...(notes !== undefined && {
+        notes: notes
+            ? String(notes).trim() || null
+            : null
+    })
+}
     });
 
     return {
