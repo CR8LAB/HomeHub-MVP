@@ -24,18 +24,17 @@ model User {
 }
 
 model Household {
-  id Int @id @default(autoincrement())
-
+  id         Int      @id @default(autoincrement())
   familyName String
   city       String
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
 
   members           HouseholdMember[]
   activationCode    ActivationCode?
   homeInfo          HomeInfo?
   emergencyContacts EmergencyContact[]
+  todos             Todo[]
 }
 
 model HouseholdMember {
@@ -98,6 +97,21 @@ model EmergencyContact {
   phone String
   type  String
   notes String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  household Household @relation(fields: [householdId], references: [id], onDelete: Cascade)
+
+  @@index([householdId])
+}
+
+model Todo {
+  id          Int @id @default(autoincrement())
+  householdId Int
+
+  title     String
+  completed Boolean @default(false)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
