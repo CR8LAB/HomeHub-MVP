@@ -24,13 +24,6 @@ export async function getHomeInfo(req, res) {
 
 export async function updateHomeInfo(req, res) {
     try {
-        if (req.user.role !== "OWNER") {
-            return res.status(403).json({
-                success: false,
-                message: "Only household owners may update home information."
-            });
-        }
-
         const result = await updateHomeInfoService(
             req.user.householdId,
             req.body

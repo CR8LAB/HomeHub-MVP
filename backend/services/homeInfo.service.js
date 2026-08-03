@@ -1,6 +1,4 @@
-import { PrismaClient } from "@prisma/client";
-
-const prisma = new PrismaClient();
+import prisma from "../config/prisma.js";
 
 export async function getHomeInfoService(householdId) {
     const homeInfo = await prisma.homeInfo.findUnique({

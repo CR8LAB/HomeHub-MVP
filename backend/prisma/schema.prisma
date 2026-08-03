@@ -32,9 +32,10 @@ model Household {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  members        HouseholdMember[]
-  activationCode ActivationCode?
-  homeInfo       HomeInfo?
+  members           HouseholdMember[]
+  activationCode    ActivationCode?
+  homeInfo          HomeInfo?
+  emergencyContacts EmergencyContact[]
 }
 
 model HouseholdMember {
@@ -87,4 +88,21 @@ model HomeInfo {
   updatedAt DateTime @updatedAt
 
   household Household @relation(fields: [householdId], references: [id], onDelete: Cascade)
+}
+
+model EmergencyContact {
+  id          Int @id @default(autoincrement())
+  householdId Int
+
+  name  String
+  phone String
+  type  String
+  notes String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  household Household @relation(fields: [householdId], references: [id], onDelete: Cascade)
+
+  @@index([householdId])
 }

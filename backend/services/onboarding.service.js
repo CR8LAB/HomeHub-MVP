@@ -1,6 +1,6 @@
-import { PrismaClient } from "@prisma/client";
+
 import bcrypt from "bcrypt";
-const prisma = new PrismaClient();
+import prisma from "../config/prisma.js";
 
 export async function validateActivationCodeService(activationCode) {
     if (!activationCode) {
