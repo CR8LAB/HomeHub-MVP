@@ -660,11 +660,8 @@ QUICK ACCESS
     border-radius: 18px;
     padding: 1rem;
 
-    background: linear-gradient(
-        135deg,
-        #8cb2e7,
-        #b2ccf1
-    );
+    background: white
+    ;
 
     transition:
         background 0.35s ease,
