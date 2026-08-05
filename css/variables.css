@@ -1,52 +1,57 @@
 :root {
-
-    /* ===========================
-       Colors
-    ============================ */
-
+    /* Brand colours */
     --primary: #152453;
     --secondary: #1968c2;
     --accent: #ac2412;
 
+    /* Surfaces */
     --bg-color: #f3f0f0;
-    --white: #FFFFFF;
-    --dark-text: #2F2F2F;
+    --surface: #ffffff;
+    --surface-soft: #f8f9fc;
+    --border-color: #e5e7eb;
 
-    /* ===========================
-       Typography
-    ============================ */
+    /* Text */
+    --dark-text: #17213f;
+    --muted-text: #6b7280;
+    --white: #ffffff;
 
-    --font-sm: 14px;
-    --font-md: 16px;
-    --font-lg: 20px;
-    --font-xl: 28px;
+    /* Typography */
+    --font-family: "Poppins", sans-serif;
 
-    /* ===========================
-       Border Radius
-    ============================ */
+    --font-xs: 0.75rem;
+    --font-sm: 0.875rem;
+    --font-md: 1rem;
+    --font-lg: 1.25rem;
+    --font-xl: 1.75rem;
+    --font-xxl: 2.25rem;
 
+    /* Spacing */
+    --space-1: 0.25rem;
+    --space-2: 0.5rem;
+    --space-3: 0.75rem;
+    --space-4: 1rem;
+    --space-5: 1.25rem;
+    --space-6: 1.5rem;
+    --space-8: 2rem;
+    --space-10: 2.5rem;
+
+    /* Radius */
     --radius-sm: 10px;
-    --radius-md: 18px;
-    --radius-lg: 24px;
+    --radius-md: 16px;
+    --radius-lg: 22px;
+    --radius-pill: 999px;
 
-    /* ===========================
-       Shadows
-    ============================ */
+    /* Shadows */
+    --shadow-sm:
+        0 6px 18px rgba(21, 36, 83, 0.10);
 
-    --shadow-sm: 0 8px 20px rgba(9, 9, 10, 0.151);
+    --shadow-md:
+        0 14px 34px rgba(21, 36, 83, 0.14);
 
-    /* ===========================
-       Spacing
-    ============================ */
+    /* Layout */
+    --app-max-width: 1100px;
+    --mobile-nav-height: 76px;
 
-    --spacing-sm: 10px;
-    --spacing-md: 20px;
-    --spacing-lg: 30px;
-
-    /* ===========================
-       Animation
-    ============================ */
-
-    --transition: 0.3s ease;
-
+    /* Motion */
+    --transition: 0.25s ease;
 }
