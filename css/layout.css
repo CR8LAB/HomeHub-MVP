@@ -151,12 +151,16 @@ footer {
     }
 
     footer {
-        left: 50%;
-        right: auto;
+          left: 0;
+        right: 0;
+        bottom: 0;
 
+        width: 100%;
         max-width: 900px;
 
-        transform: translateX(-50%);
+        margin-inline: auto;
+
+        transform: none;
     }
 
     .dashboard {
