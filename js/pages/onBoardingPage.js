@@ -29,6 +29,10 @@ const setup = {
 ========================================================= */
 
 export function renderOnboardingPage() {
+
+    document.querySelector("header")?.classList.add("hidden");
+document.querySelector("nav")?.classList.add("hidden");
+
     resetSetup();
     renderStep();
 }

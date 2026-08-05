@@ -8,6 +8,15 @@ import { setActiveNav } from "../components/navigation.js";
 const appContent = document.getElementById("app-content");
 
 export async function renderHomePage() {
+
+document
+        .querySelector("header")
+        ?.classList.remove("hidden");
+
+    document
+        .querySelector("nav")
+        ?.classList.remove("hidden");
+
     try {
         const result = await apiRequest("/dashboard");
         const dashboardData = result.dashboard;

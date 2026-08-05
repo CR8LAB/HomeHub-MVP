@@ -1,8 +1,11 @@
+import { initHeader } from "./components/header.js";
+
 import { renderHomePage } from "./pages/dashboardPage.js";
 import { renderToDo } from "./pages/todoPage.js";
 import { renderHomeInfoPage } from "./pages/homeInfoPage.js";
 import { renderEmergencyInfo } from "./pages/emergencyPage.js";
 import { renderOnboardingPage } from "./pages/onBoardingPage.js";
+import { renderLoginPage } from "./pages/loginPage.js";
 
 const toDoBtn = document.getElementById("todo-btn");
 const homeBtn = document.getElementById("home-btn");
@@ -14,10 +17,16 @@ homeBtn.addEventListener("click", renderHomePage);
 homeInfoBtn.addEventListener("click", renderHomeInfoPage);
 emergencyBtn.addEventListener("click", renderEmergencyInfo);
 
-const token = localStorage.getItem("homehubToken");
+async function startApp() {
+    const token =
+        localStorage.getItem("homehubToken");
 
-if (token) {
-    renderHomePage();
-} else {
-    renderOnboardingPage();
+    if (token) {
+        await initHeader();
+        await renderHomePage();
+    } else {
+        renderLoginPage();
+    }
 }
+
+startApp();
