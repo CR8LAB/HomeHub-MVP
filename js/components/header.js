@@ -63,16 +63,12 @@ function updateDateAndTime() {
     }
 
     if (timeElement) {
-        timeElement.textContent =
-            now.toLocaleTimeString(
-                "en-ZA",
-                {
-                    hour: "2-digit",
-                    minute: "2-digit",
-                    second: "2-digit",
-                    hour12: false
-                }
-            );
+       timeElement.textContent =
+    now.toLocaleTimeString("en-ZA", {
+        hour: "2-digit",
+        minute: "2-digit",
+        hour12: false
+    });
     }
 }
 
