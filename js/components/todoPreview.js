@@ -48,9 +48,13 @@ export function renderTodoPreview(todoSummary) {
             }
         </ul>
 
-        <button id="view-all-todos">
-            View All
-        </button>
+      <button
+    id="view-all-todos"
+    class="app-card__action"
+    type="button"
+>
+    View All Tasks
+</button>
     `;
 
     const viewAllButton =

@@ -73,6 +73,7 @@ header {
 
 main {
     width: 100%;
+    min-width: 0;
     flex: 1;
 
     padding:
@@ -111,12 +112,30 @@ footer {
 
     display: grid;
     grid-template-columns: minmax(0, 1fr);
+
+    grid-template-areas:
+        "weather"
+        "todo"
+        "quick";
+
     gap: var(--space-4);
 }
 
 .dashboard > * {
     width: 100%;
     min-width: 0;
+}
+
+.dashboard .weather-card {
+    grid-area: weather;
+}
+
+.dashboard .summary-card {
+    grid-area: todo;
+}
+
+.dashboard .quick-card {
+    grid-area: quick;
 }
 
 /* ==========================================
@@ -128,10 +147,10 @@ footer {
 }
 
 /* ==========================================
-   Tablet — 601px and above
+   Tablet — 601px to 900px
 ========================================== */
 
-@media (min-width: 601px) {
+@media (min-width: 601px) and (max-width: 900px) {
     #app {
         max-width: 900px;
     }
@@ -151,7 +170,7 @@ footer {
     }
 
     footer {
-          left: 0;
+        left: 0;
         right: 0;
         bottom: 0;
 
@@ -159,16 +178,17 @@ footer {
         max-width: 900px;
 
         margin-inline: auto;
-
-        transform: none;
     }
+.dashboard {
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
 
-    .dashboard {
-        grid-template-columns:
-            repeat(2, minmax(0, 1fr));
+    grid-template-areas:
+        "weather weather"
+        "todo quick";
 
-        gap: var(--space-5);
-    }
+    gap: var(--space-5);
+}
 
     .dashboard .weather-card {
         grid-column: 1 / -1;
@@ -212,22 +232,22 @@ footer {
             var(--space-8)
             var(--space-5);
 
-        transform: none;
-
         background: transparent;
         box-shadow: none;
     }
 
     .dashboard {
-        grid-template-columns:
-            minmax(0, 1fr)
-            minmax(0, 1.3fr)
-            minmax(0, 1fr);
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
 
-        gap: var(--space-5);
-    }
+    grid-template-areas:
+        "weather weather"
+        "todo quick";
+
+    gap: var(--space-5);
+}
 
     .dashboard .weather-card {
-        grid-column: auto;
+        grid-column: 1 / -1;
     }
 }

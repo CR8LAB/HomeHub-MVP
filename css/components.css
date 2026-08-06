@@ -1,71 +1,11 @@
-/* ==========================================
-   Card
-========================================== */
 
-.card{
-    background: rgb(255, 255, 255);
-    border: none;
-    border-radius: var(--radius-md);
-    box-shadow: var(--shadow-sm);
-
-    padding: 32px;
-    min-height: 260px;
-
-    display: flex;
-    flex-direction: column;
-}
-
-.card h2{
-    color: var(--primary);
-    font-weight: 700;
-    text-align: center;
-    margin-bottom: 24px;
-}
-
-.card h3{
-    color: var(--primary);
-    margin-bottom: 18px;
-}
-
-.card p{
-    color: var(--dark-text);
-    margin-bottom: 8px;
-}
-
-
-/* ==========================================
-   Navigation
-========================================== */
-
-
-
-
-/* ==========================================
-   Header
-========================================== */
-
-.header-status{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.weather{
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
 
 
 /* ==========================================
    Dashboard Cards
 ========================================== */
 
-.summary-card{
-    display: flex;
-    flex-direction: column;
-    gap: 18px;
-}
+
 
 .task-item{
     display: flex;
@@ -77,11 +17,7 @@
     color: var(--primary);
 }
 
-.quick-card{
-    display: flex;
-    flex-direction: column;
-    gap: 18px;
-}
+
 
 .quick-item {
     display: flex;
@@ -100,9 +36,6 @@
     font-size: 1.2rem;
 }
 
-.weather-card{
-    gap: 20px;
-}
 
 
 /* ==========================================
@@ -272,18 +205,7 @@
     
 }
 
-#view-all-todos{
-padding: 10px 16px;
 
-    border: none;
-    border-radius: var(--radius-md);
-
-    background: var(--secondary);
-    color: var(--white);
-
-    cursor: pointer;
-margin-top: 10px;
-}
 
 .todo-progress {
     width: 100%;
@@ -583,25 +505,6 @@ QUICK ACCESS
     font-size: 12px;
 }
 
-.forecast-link{
-    margin-top:18px;
-    padding:10px 14px;
-    background:#f3f6f4;
-    border-radius:10px;
-    text-align:center;
-    font-weight:600;
-    color:#2d6a4f;
-    cursor:pointer;
-    transition:.2s;
-}
 
-.forecast-link:hover{
-    background:#e4ece7;
-}
 
-/* ===========================
-   WEATHER CARD BASE
-=========================== */
-
-/* =====================================================
    
