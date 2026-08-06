@@ -144,8 +144,6 @@ export async function renderWeatherCard(
         container.innerHTML = `
             ${weatherIcon}
 
-            <h3>Weather</h3>
-
             <h2>${weather.temperature}°C</h2>
 
             <p>${weather.description}</p>
@@ -157,7 +155,7 @@ export async function renderWeatherCard(
                 class="forecast-link"
                 type="button"
             >
-                View 5-Day Forecast →
+                 5-Day Forecast →
             </button>
         `;
 

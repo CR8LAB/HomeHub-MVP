@@ -1,0 +1,676 @@
+/* ==========================================
+   WEATHER CARD — MOBILE FIRST
+========================================== */
+
+.card.weather-card {
+    width: 100%;
+    min-height: 0;
+
+    padding: 0;
+
+    border: none;
+    border-radius: var(--radius-lg);
+
+    background: transparent;
+
+    overflow: hidden;
+
+    box-shadow: none;
+}
+
+#weatherCard {
+    position: relative;
+    isolation: isolate;
+
+    width: 100%;
+    min-height: 300px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    padding: var(--space-6);
+
+    overflow: hidden;
+
+    border-radius: var(--radius-lg);
+
+    color: var(--white);
+    text-align: center;
+
+    box-shadow: var(--shadow-md);
+
+    transition:
+        background var(--transition),
+        color var(--transition),
+        transform var(--transition);
+}
+
+#weatherCard > * {
+    position: relative;
+    z-index: 2;
+}
+
+/* ==========================================
+   WEATHER ICON
+========================================== */
+
+#weatherCard img {
+    width: 74px;
+    height: 74px;
+
+    margin-bottom: var(--space-2);
+
+    object-fit: contain;
+}
+
+/* ==========================================
+   TEMPERATURE — MAIN FOCUS
+========================================== */
+
+#weatherCard h2 {
+    margin: var(--space-2) 0;
+
+    color: inherit;
+
+    font-size: clamp(3.4rem, 18vw, 5rem);
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -0.05em;
+}
+
+/* ==========================================
+   CONDITION
+========================================== */
+
+#weatherCard p {
+    margin: var(--space-3) 0 var(--space-2);
+
+    color: inherit;
+
+    font-size: 1.05rem;
+    font-weight: 500;
+
+    text-transform: capitalize;
+}
+
+/* ==========================================
+   LOCATION
+========================================== */
+
+#weatherCard small {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: var(--space-2);
+
+    color: inherit;
+
+    font-size: var(--font-sm);
+    font-weight: 600;
+}
+
+#weatherCard small::before {
+    content: "\F3E8";
+
+    font-family: "bootstrap-icons";
+    font-size: 0.95rem;
+}
+
+/* ==========================================
+   DIVIDER
+========================================== */
+
+#weatherCard small::after {
+    content: "";
+
+    position: absolute;
+    left: 50%;
+    bottom: -24px;
+
+    width: min(220px, 70%);
+    height: 1px;
+
+    background: rgba(255, 255, 255, 0.32);
+
+    transform: translateX(-50%);
+}
+
+/* ==========================================
+   FORECAST BUTTON
+========================================== */
+
+.forecast-link {
+    min-height: 44px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-top: var(--space-10);
+    padding: 10px 18px;
+
+    border: 1px solid rgba(255, 255, 255, 0.42);
+    border-radius: var(--radius-pill);
+
+    background: rgba(255, 255, 255, 0.16);
+    color: var(--white);
+
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+
+    font-size: var(--font-sm);
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+        background var(--transition),
+        transform var(--transition);
+}
+
+.forecast-link:focus-visible {
+    outline: 3px solid rgba(255, 255, 255, 0.5);
+    outline-offset: 3px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .forecast-link:hover {
+        background: rgba(255, 255, 255, 0.28);
+        transform: translateY(-2px);
+    }
+}
+
+/* ==========================================
+   WEATHER DECORATION
+========================================== */
+
+#weatherCard::before,
+#weatherCard::after {
+    content: "";
+
+    position: absolute;
+
+    pointer-events: none;
+}
+
+/* ==========================================
+   CLEAR / SUNNY
+========================================== */
+
+.weather-clear {
+    background:
+        linear-gradient(
+            145deg,
+            #25b8ec 0%,
+            #31a9d3 48%,
+            #8ac5e7 100%
+        );
+}
+
+.weather-clear::before {
+    width: 120px;
+    height: 120px;
+
+    top: -34px;
+    right: -28px;
+
+    border-radius: 50%;
+
+    background: rgba(255, 244, 139, 0.94);
+
+    box-shadow:
+        0 0 30px rgba(255, 238, 128, 0.70),
+        0 0 70px rgba(255, 193, 7, 0.45);
+
+    animation: weatherSunPulse 4s ease-in-out infinite;
+}
+
+.weather-clear::after {
+    width: 180px;
+    height: 180px;
+
+    top: -64px;
+    right: -58px;
+
+    border: 2px solid rgba(255, 255, 255, 0.24);
+    border-radius: 50%;
+
+    animation: weatherSunRotate 16s linear infinite;
+}
+
+/* ==========================================
+   CLOUDY
+========================================== */
+
+.weather-cloud {
+    background:
+        linear-gradient(
+            145deg,
+            #52657b,
+            #8ea0b3
+        );
+}
+
+.weather-cloud::before,
+.weather-cloud::after {
+    width: 105px;
+    height: 34px;
+
+    border-radius: var(--radius-pill);
+
+    background: rgba(255, 255, 255, 0.24);
+
+    box-shadow:
+        28px -12px 0 6px rgba(255, 255, 255, 0.20),
+        58px 2px 0 -3px rgba(255, 255, 255, 0.16);
+}
+
+.weather-cloud::before {
+    top: 28px;
+    left: -100px;
+
+    animation: weatherCloudMove 17s linear infinite;
+}
+
+.weather-cloud::after {
+    bottom: 46px;
+    left: -140px;
+
+    opacity: 0.55;
+
+    animation: weatherCloudMove 23s linear infinite;
+}
+
+/* ==========================================
+   RAIN
+========================================== */
+
+.weather-rain {
+    background:
+        linear-gradient(
+            145deg,
+            #18366f,
+            #087d85
+        );
+}
+
+.weather-rain::before {
+    inset: 0;
+
+    background-image:
+        linear-gradient(
+            115deg,
+            transparent 0 43%,
+            rgba(255, 255, 255, 0.28) 44% 46%,
+            transparent 47% 100%
+        );
+
+    background-size: 22px 38px;
+
+    opacity: 0.55;
+
+    animation: weatherRainFall 0.8s linear infinite;
+}
+
+.weather-rain::after {
+    width: 130px;
+    height: 42px;
+
+    top: 22px;
+    left: 20px;
+
+    border-radius: var(--radius-pill);
+
+    background: rgba(15, 23, 42, 0.34);
+
+    box-shadow:
+        34px -13px 0 6px rgba(15, 23, 42, 0.27),
+        70px 0 0 -2px rgba(15, 23, 42, 0.22);
+}
+
+/* ==========================================
+   THUNDERSTORM
+========================================== */
+
+.weather-storm {
+    background:
+        linear-gradient(
+            145deg,
+            #101827,
+            #302b75,
+            #4338ca
+        );
+}
+
+.weather-storm::before {
+    inset: 0;
+
+    background: rgba(255, 255, 255, 0);
+
+    animation: weatherLightningFlash 8s infinite;
+}
+
+.weather-storm::after {
+    width: 24px;
+    height: 76px;
+
+    top: 28px;
+    right: 46px;
+
+    background: #fde047;
+
+    clip-path: polygon(
+        48% 0,
+        100% 0,
+        66% 38%,
+        92% 38%,
+        20% 100%,
+        40% 54%,
+        12% 54%
+    );
+
+    filter:
+        drop-shadow(
+            0 0 10px rgba(253, 224, 71, 0.75)
+        );
+
+    animation:
+        weatherBoltPulse 2.8s ease-in-out infinite;
+}
+
+/* ==========================================
+   SNOW
+========================================== */
+
+.weather-snow {
+    color: #17213f;
+
+    background:
+        linear-gradient(
+            145deg,
+            #cfeaff,
+            #f8fafc
+        );
+}
+
+.weather-snow .forecast-link {
+    border-color: rgba(23, 33, 63, 0.20);
+
+    background: rgba(255, 255, 255, 0.42);
+    color: #17213f;
+}
+
+.weather-snow small::after {
+    background: rgba(23, 33, 63, 0.18);
+}
+
+.weather-snow::before {
+    inset: 0;
+
+    background-image:
+        radial-gradient(
+            circle,
+            rgba(255, 255, 255, 0.95) 0 2px,
+            transparent 3px
+        );
+
+    background-size: 24px 24px;
+
+    animation: weatherSnowFall 7s linear infinite;
+}
+
+.weather-snow::after {
+    inset: 0;
+
+    background-image:
+        radial-gradient(
+            circle,
+            rgba(255, 255, 255, 0.80) 0 1.5px,
+            transparent 2.5px
+        );
+
+    background-size: 34px 34px;
+
+    animation: weatherSnowFallSlow 11s linear infinite;
+}
+
+/* ==========================================
+   MIST / FOG
+========================================== */
+
+.weather-mist {
+    color: #17213f;
+
+    background:
+        linear-gradient(
+            145deg,
+            #c3cdd8,
+            #e5e9ee
+        );
+}
+
+.weather-mist .forecast-link {
+    border-color: rgba(23, 33, 63, 0.20);
+
+    background: rgba(255, 255, 255, 0.34);
+    color: #17213f;
+}
+
+.weather-mist small::after {
+    background: rgba(23, 33, 63, 0.18);
+}
+
+.weather-mist::before,
+.weather-mist::after {
+    left: -30%;
+
+    width: 160%;
+    height: 26px;
+
+    border-radius: var(--radius-pill);
+
+    background: rgba(255, 255, 255, 0.42);
+
+    filter: blur(6px);
+}
+
+.weather-mist::before {
+    top: 35%;
+
+    animation:
+        weatherMistMove 10s ease-in-out infinite alternate;
+}
+
+.weather-mist::after {
+    top: 62%;
+
+    opacity: 0.60;
+
+    animation:
+        weatherMistMove 14s ease-in-out infinite alternate-reverse;
+}
+
+/* ==========================================
+   DEFAULT
+========================================== */
+
+.weather-default {
+    background:
+        linear-gradient(
+            145deg,
+            #709aca,
+            #536f98
+        );
+}
+
+/* ==========================================
+   TABLET
+========================================== */
+
+@media (min-width: 601px) {
+    #weatherCard {
+        min-height: 330px;
+
+        padding: var(--space-8);
+    }
+
+    #weatherCard img {
+        width: 82px;
+        height: 82px;
+    }
+
+    #weatherCard h2 {
+        font-size: 5rem;
+    }
+
+    #weatherCard p {
+        font-size: 1.15rem;
+    }
+
+    #weatherCard small {
+        font-size: var(--font-md);
+    }
+
+    .forecast-link {
+        padding: 12px 22px;
+        font-size: var(--font-md);
+    }
+}
+
+/* ==========================================
+   DESKTOP
+========================================== */
+
+@media (min-width: 901px) {
+    #weatherCard {
+        min-height: 330px;
+    }
+
+    #weatherCard h2 {
+        font-size: 4.2rem;
+    }
+}
+
+/* ==========================================
+   ANIMATIONS
+========================================== */
+
+@keyframes weatherSunPulse {
+    0%,
+    100% {
+        transform: scale(1);
+        opacity: 0.90;
+    }
+
+    50% {
+        transform: scale(1.08);
+        opacity: 1;
+    }
+}
+
+@keyframes weatherSunRotate {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes weatherCloudMove {
+    from {
+        transform: translateX(0);
+    }
+
+    to {
+        transform: translateX(520px);
+    }
+}
+
+@keyframes weatherRainFall {
+    from {
+        background-position: 0 0;
+    }
+
+    to {
+        background-position: -14px 38px;
+    }
+}
+
+@keyframes weatherLightningFlash {
+    0%,
+    89%,
+    100% {
+        background: rgba(255, 255, 255, 0);
+    }
+
+    91% {
+        background: rgba(255, 255, 255, 0.50);
+    }
+
+    93% {
+        background: rgba(255, 255, 255, 0.08);
+    }
+
+    95% {
+        background: rgba(255, 255, 255, 0.32);
+    }
+}
+
+@keyframes weatherBoltPulse {
+    0%,
+    100% {
+        opacity: 0.72;
+        transform: scale(0.96);
+    }
+
+    50% {
+        opacity: 1;
+        transform: scale(1.08);
+    }
+}
+
+@keyframes weatherSnowFall {
+    from {
+        background-position: 0 -20px;
+    }
+
+    to {
+        background-position: 18px 180px;
+    }
+}
+
+@keyframes weatherSnowFallSlow {
+    from {
+        background-position: 10px -30px;
+    }
+
+    to {
+        background-position: -16px 170px;
+    }
+}
+
+@keyframes weatherMistMove {
+    from {
+        transform: translateX(-7%);
+    }
+
+    to {
+        transform: translateX(7%);
+    }
+}
+
+/* ==========================================
+   REDUCED MOTION
+========================================== */
+
+@media (prefers-reduced-motion: reduce) {
+    #weatherCard::before,
+    #weatherCard::after {
+        animation: none !important;
+    }
+}
