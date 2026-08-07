@@ -6,6 +6,8 @@ import {
 import { renderHomePage } from "./dashboardPage.js";
 import { renderOnboardingPage } from "./onBoardingPage.js";
 import { initHeader } from "../components/header.js";
+import { showToast } from "../components/toast.js";
+
 
 const appContent =
     document.getElementById("app-content");
@@ -146,6 +148,8 @@ async function loginUser() {
 
         saveToken(result.token);
 
+        showToast("Welcome back!", "success");
+
         await initHeader();
         await renderHomePage();
 
@@ -164,3 +168,5 @@ async function loginUser() {
 document
     .querySelector("footer")
     ?.classList.add("hidden");
+
+    

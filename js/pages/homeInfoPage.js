@@ -1,6 +1,7 @@
 import { apiRequest } from "../services/api.js";
 import { setupSectionToggles } from "../utils/accordion.js";
 import { setActiveNav } from "../components/navigation.js";
+import { showToast } from "../components/toast.js";
 
 const appContent = document.getElementById("app-content");
 
@@ -134,10 +135,10 @@ async function saveHomeInfo() {
 
         saveBtn.textContent = "Saved";
 
-        console.log(
-            result.message ||
-            "Home information saved successfully."
-        );
+       showToast(
+    result.message || "Home information saved.",
+    "success"
+);
 
         setTimeout(() => {
             saveBtn.textContent = "Save Information";
@@ -148,6 +149,11 @@ async function saveHomeInfo() {
             "Save home information failed:",
             error.message
         );
+
+showToast(
+    error.message || "Unable to save home information.",
+    "error"
+);
 
         saveBtn.textContent = "Save Failed";
 
@@ -256,6 +262,12 @@ async function loadHomeInfo() {
             "Load home information failed:",
             error.message
         );
+
+showToast(
+    error.message || "Unable to load home information.",
+    "error"
+);
+
     }
 }
 
