@@ -11,7 +11,7 @@ const appContent =
     document.getElementById("app-content");
 
 export function renderLoginPage() {
-    
+
 document.querySelector("header")?.classList.add("hidden");
 document.querySelector("nav")?.classList.add("hidden");
 
@@ -21,7 +21,7 @@ document.querySelector("nav")?.classList.add("hidden");
             <div class="setup-card">
 
                 <img
-                    src="images/homehub-logo.png"
+                    src="assets/images/36830.png"
                     class="setup-logo"
                     alt="HomeHub Logo"
                 >

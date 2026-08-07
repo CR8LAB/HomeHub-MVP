@@ -1,0 +1,233 @@
+/* ==========================================
+   LOGIN PAGE — MOBILE FIRST
+========================================== */
+
+.setup-container {
+    width: 100%;
+    min-height: calc(100vh - var(--mobile-nav-height));
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: var(--space-5) var(--space-4);
+}
+
+.setup-card {
+    width: 100%;
+    max-width: 420px;
+
+    display: flex;
+    flex-direction: column;
+
+    padding: var(--space-6);
+
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+
+    background: var(--surface);
+
+    box-shadow: var(--shadow-md);
+}
+
+/* ==========================================
+   LOGO
+========================================== */
+
+.setup-logo {
+    width: 150px;
+    max-width: 60%;
+    height: auto;
+
+    margin: 0 auto var(--space-4);
+
+    object-fit: contain;
+}
+
+/* ==========================================
+   HEADINGS
+========================================== */
+
+.setup-card h1 {
+    margin: 0 0 var(--space-2);
+
+    color: var(--primary);
+
+    font-size: var(--font-xl);
+    font-weight: 700;
+    line-height: 1.2;
+
+    text-align: center;
+}
+
+.setup-tagline {
+    margin-bottom: var(--space-5);
+
+    color: var(--muted-text);
+
+    font-size: var(--font-sm);
+
+    text-align: center;
+}
+
+/* ==========================================
+   FORM LABELS
+========================================== */
+
+.setup-card label {
+    display: block;
+
+    margin-bottom: var(--space-2);
+
+    color: var(--dark-text);
+
+    font-size: var(--font-sm);
+    font-weight: 600;
+}
+
+/* ==========================================
+   INPUTS
+========================================== */
+
+.setup-card input {
+    width: 100%;
+    min-height: 46px;
+
+    margin-bottom: var(--space-4);
+    padding: 12px 14px;
+
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+
+    background: var(--surface);
+    color: var(--dark-text);
+
+    font-size: var(--font-md);
+
+    outline: none;
+
+    transition:
+        border-color var(--transition),
+        box-shadow var(--transition);
+}
+
+.setup-card input:focus {
+    border-color: var(--secondary);
+
+    box-shadow:
+        0 0 0 3px rgba(25, 104, 194, 0.14);
+}
+
+/* ==========================================
+   LOGIN MESSAGE
+========================================== */
+
+.setup-message {
+    min-height: 22px;
+
+    margin-bottom: var(--space-3);
+
+    font-size: var(--font-sm);
+    text-align: center;
+}
+
+.setup-message.error {
+    color: #b92d26;
+}
+
+.setup-message.success {
+    color: #15803d;
+}
+
+/* ==========================================
+   LOGIN BUTTON
+========================================== */
+
+#loginBtn {
+    width: 100%;
+    min-height: 46px;
+
+    margin-top: var(--space-2);
+
+    border: none;
+    border-radius: var(--radius-md);
+
+    background: var(--primary);
+    color: var(--white);
+
+    font-size: var(--font-md);
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition:
+        background var(--transition),
+        transform var(--transition);
+}
+
+/* ==========================================
+   ACTIVATE BUTTON
+========================================== */
+
+#activateBtn {
+    width: 100%;
+    min-height: 46px;
+
+    margin-top: var(--space-3);
+
+    border: 1px solid var(--secondary);
+    border-radius: var(--radius-md);
+
+    background: transparent;
+    color: var(--secondary);
+
+    font-size: var(--font-sm);
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+        background var(--transition),
+        color var(--transition);
+}
+
+/* ==========================================
+   POINTER DEVICES
+========================================== */
+
+@media (hover: hover) and (pointer: fine) {
+    #loginBtn:hover {
+        background: var(--secondary);
+
+        transform: translateY(-1px);
+    }
+
+    #activateBtn:hover {
+        background: var(--secondary);
+        color: var(--white);
+    }
+}
+
+/* ==========================================
+   TABLET
+========================================== */
+
+@media (min-width: 601px) {
+    .setup-container {
+        padding: var(--space-8);
+    }
+
+    .setup-card {
+        max-width: 480px;
+
+        padding: var(--space-8);
+    }
+
+    .setup-logo {
+        width: 180px;
+    }
+
+    .setup-card h1 {
+        font-size: 2rem;
+    }
+}

@@ -1,4 +1,8 @@
 import { apiRequest } from "../services/api.js";
+import {
+    renderSettingsPage
+} from "../pages/settingsPage.js";
+
 
 let clockInterval = null;
 
@@ -187,20 +191,22 @@ function setupHeaderButtons() {
     );
 
     userBtn?.addEventListener(
-        "click",
-        () => {
-            console.log(
-                "Profile coming soon."
-            );
-        }
-    );
+    "click",
+    renderSettingsPage
+);
 
-    settingsBtn?.addEventListener(
-        "click",
-        () => {
-            console.log(
-                "Settings clicked."
-            );
-        }
-    );
+settingsBtn?.addEventListener(
+    "click",
+    renderSettingsPage
+);
+
+notificationBtn?.addEventListener(
+    "click",
+    () => {
+        console.log(
+            "Notifications coming soon."
+        );
+    }
+);
+
 }

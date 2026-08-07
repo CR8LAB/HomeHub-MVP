@@ -161,7 +161,7 @@ function renderWelcomeStep() {
             <div class="setup-card">
 
                 <img
-                    src="images/homehub-logo.png"
+                    src="assets/images/36830.png"
                     class="setup-logo"
                     alt="HomeHub Logo"
                 >
@@ -214,7 +214,7 @@ function renderActivationStep() {
             <div class="setup-card">
 
                 <img
-                    src="images/homehub-logo.png"
+                    src="assets/images/36830.png"
                     class="setup-logo"
                     alt="HomeHub Logo"
                 >
@@ -353,7 +353,7 @@ function renderHouseholdStep() {
             <div class="setup-card">
 
                 <img
-                    src="images/homehub-logo.png"
+                    src="assets/images/36830.png"
                     class="setup-logo"
                     alt="HomeHub Logo"
                 >
@@ -522,7 +522,7 @@ function renderOwnerStep() {
             <div class="setup-card">
 
                 <img
-                    src="images/homehub-logo.png"
+                    src="assets/images/36830.png"
                     class="setup-logo"
                     alt="HomeHub Logo"
                 >
