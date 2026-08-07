@@ -160,3 +160,7 @@ async function loginUser() {
         loginBtn.textContent = "Login";
     }
 }
+
+document
+    .querySelector("footer")
+    ?.classList.add("hidden");

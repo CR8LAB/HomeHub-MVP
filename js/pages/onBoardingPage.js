@@ -784,3 +784,7 @@ async function finishSetup() {
             "Finish Setup";
     }
 }
+
+document
+    .querySelector("footer")
+    ?.classList.add("hidden");

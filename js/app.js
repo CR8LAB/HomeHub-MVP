@@ -7,6 +7,8 @@ import { renderEmergencyInfo } from "./pages/emergencyPage.js";
 import { renderOnboardingPage } from "./pages/onBoardingPage.js";
 import { renderLoginPage } from "./pages/loginPage.js";
 
+
+
 const toDoBtn = document.getElementById("todo-btn");
 const homeBtn = document.getElementById("home-btn");
 const emergencyBtn = document.getElementById("emergency-btn");
@@ -28,5 +30,20 @@ async function startApp() {
         renderLoginPage();
     }
 }
+
+window.addEventListener(
+    "auth:expired",
+    () => {
+        document
+            .querySelector("header")
+            ?.classList.add("hidden");
+
+        document
+            .querySelector("footer")
+            ?.classList.add("hidden");
+
+        renderLoginPage();
+    }
+);
 
 startApp();

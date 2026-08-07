@@ -190,19 +190,28 @@ export async function renderSettingsPage() {
             });
 
     } catch (error) {
-        console.error(
-            "Settings load failed:",
-            error
-        );
+    console.error(
+        "Settings load failed:",
+        error
+    );
 
-        appContent.innerHTML = `
-            <section class="dashboard-error">
-                <p>
-                    Unable to load settings.
-                </p>
-            </section>
-        `;
+    const token =
+        localStorage.getItem("homehubToken");
+
+    // Authentication failure has already
+    // redirected the user to Login.
+    if (!token) {
+        return;
     }
+
+    appContent.innerHTML = `
+        <section class="dashboard-error">
+            <p>
+                Unable to load settings.
+            </p>
+        </section>
+    `;
+}
 }
 
 function formatRole(role) {

@@ -37,11 +37,23 @@ export async function apiRequest(
 
     const data = await response.json();
 
-    if (!response.ok) {
-        throw new Error(
-            data.message || "Request failed."
-        );
-    }
+   if (response.status === 401) {
+    removeToken();
+
+    window.dispatchEvent(
+        new CustomEvent("auth:expired")
+    );
+
+    throw new Error(
+        data.message || "Your session has expired."
+    );
+}
+
+if (!response.ok) {
+    throw new Error(
+        data.message || "Request failed."
+    );
+}
 
     return data;
 }
