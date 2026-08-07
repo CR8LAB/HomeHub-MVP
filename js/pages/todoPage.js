@@ -135,7 +135,7 @@ export function getTasks() {
 export async function renderToDo() {
     appContent.innerHTML = `
         <section class="todo-page">
-            <div class="card">
+            <div class="app-card">
                 <h2>To Do List</h2>
 
                 <input

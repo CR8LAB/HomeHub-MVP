@@ -75,14 +75,14 @@ function displayWeather(weather) {
         : "";
 
     container.innerHTML = `
-        <div class="weather-card ${weatherTheme}">
+        <div class="weather-page-card ${weatherTheme}">
             ${weatherIcon}
-
-            <h3>${weather.city}</h3>
 
             <h1>${weather.temperature}°C</h1>
 
             <p>${weather.description}</p>
+
+            <small>${weather.city}</small>
         </div>
     `;
 }

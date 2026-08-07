@@ -1,0 +1,79 @@
+/* ==========================================
+   FORM GROUP
+========================================== */
+
+.form-group {
+    margin-bottom: var(--space-5);
+}
+
+.form-group:last-child {
+    margin-bottom: 0;
+}
+
+.form-group label {
+    display: block;
+
+    margin-bottom: var(--space-2);
+
+    color: var(--dark-text);
+
+    font-size: var(--font-sm);
+    font-weight: 600;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    min-height: 46px;
+
+    padding: 12px 14px;
+
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+
+    background: var(--surface);
+    color: var(--dark-text);
+
+    font-size: var(--font-md);
+
+    outline: none;
+
+    transition:
+        border-color var(--transition),
+        box-shadow var(--transition);
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    border-color: var(--secondary);
+
+    box-shadow:
+        0 0 0 3px rgba(25, 104, 194, 0.14);
+}
+
+.password-group {
+    display: flex;
+    gap: var(--space-2);
+}
+
+.password-group input {
+    min-width: 0;
+    flex: 1;
+}
+
+.password-group button {
+    width: 48px;
+    min-height: 46px;
+
+    flex-shrink: 0;
+
+    border: none;
+    border-radius: var(--radius-sm);
+
+    background: var(--surface-soft);
+    color: var(--primary);
+
+    cursor: pointer;
+}
