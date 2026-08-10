@@ -1,3 +1,4 @@
+import PublicLayout from "../layout/PublicLayout.jsx"
 import {BrowserRouter,Routes,Route} from "react-router-dom";
 
 import LandingPage from "../pages/LandingPage.jsx";
@@ -9,14 +10,21 @@ function AppRouter(){
 
 <BrowserRouter>
   <Routes>
-    <Route
-    path="/"
+<Route path ="/"
+       element = {<PublicLayout />}>
+
+
+     <Route
+    index
     element={<LandingPage />}
     />
    <Route
     path="/login"
     element={<LoginPage />}
    />
+</Route>
+
+    
 
   </Routes>
 </BrowserRouter>
