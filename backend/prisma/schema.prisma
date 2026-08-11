@@ -21,6 +21,7 @@ model User {
   updatedAt DateTime @updatedAt
 
   households HouseholdMember[]
+  agencies   AgencyMember[]
 }
 
 model Household {
@@ -63,14 +64,19 @@ model ActivationCode {
 
   code String @unique
 
+  agencyId    Int?
   householdId Int? @unique
 
   isClaimed Boolean @default(false)
   isEnabled Boolean @default(true)
 
-  createdAt DateTime @default(now())
+  createdAt DateTime  @default(now())
+  claimedAt DateTime?
 
+  agency    Agency?    @relation(fields: [agencyId], references: [id])
   household Household? @relation(fields: [householdId], references: [id])
+
+  @@index([agencyId])
 }
 
 model HomeInfo {
@@ -135,4 +141,41 @@ model Todo {
   household Household @relation(fields: [householdId], references: [id], onDelete: Cascade)
 
   @@index([householdId])
+}
+
+model Agency {
+  id       Int    @id @default(autoincrement())
+  name     String
+  slug     String @unique
+  city     String?
+  logoUrl  String?
+  isActive Boolean @default(true)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  members         AgencyMember[]
+  activationCodes ActivationCode[]
+}
+
+model AgencyMember {
+  id Int @id @default(autoincrement())
+
+  userId   Int
+  agencyId Int
+
+  role AgencyRole @default(AGENT)
+
+  joinedAt DateTime @default(now())
+
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  agency Agency @relation(fields: [agencyId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, agencyId])
+  @@index([agencyId])
+}
+
+enum AgencyRole {
+  ADMIN
+  AGENT
 }
