@@ -1,23 +1,79 @@
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
+import { loginAgency } from "../services/auth.service.js";
 
- function LoginPage(){
+function LoginPage() {
+  const navigate = useNavigate();
 
-    return(
-<div>
-<h1>Agency Login</h1>
-<form>
-    <input type="text" placeholder="Email"></input>
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-    <input type="password" placeholder="Password"></input>
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
-    <button>Login</button>
+  async function handleLogin(event) {
+    event.preventDefault();
 
-     
-</form>
+    setError("");
+    setLoading(true);
 
-</div>
+    try {
+      const result = await loginAgency(email, password);
+      console.log("LOGIN RESULT:", result);
+      localStorage.setItem("homehubAgencyToken", result.token);
 
-    )
+      navigate("/portal");
+    } catch (error) {
+      console.error("Agency login failed:", error);
+
+      setError(error.message || "Unable to login.");
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  return (
+    <section>
+      <h1>Agency Login</h1>
+
+      <form onSubmit={handleLogin}>
+        <div>
+          <label htmlFor="email">Email</label>
+
+          <input
+            id="email"
+            type="email"
+            value={email}
+            onChange={(event) => setEmail(event.target.value)}
+            placeholder="Email address"
+            autoComplete="email"
+            required
+          />
+        </div>
+
+        <div>
+          <label htmlFor="password">Password</label>
+
+          <input
+            id="password"
+            type="password"
+            value={password}
+            onChange={(event) => setPassword(event.target.value)}
+            placeholder="Password"
+            autoComplete="current-password"
+            required
+          />
+        </div>
+
+        {error && <p>{error}</p>}
+
+        <button type="submit" disabled={loading}>
+          {loading ? "Signing in..." : "Login"}
+        </button>
+      </form>
+    </section>
+  );
 }
 
 export default LoginPage;
