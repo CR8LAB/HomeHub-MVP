@@ -89,3 +89,63 @@ export async function agencyLoginService({ email, password }) {
     },
   };
 }
+
+export async function getCurrentAgencyUserService(userId, agencyId) {
+  const user = await prisma.user.findUnique({
+    where: {
+      id: Number(userId),
+    },
+
+    include: {
+      agencies: {
+        where: {
+          agencyId: Number(agencyId),
+        },
+
+        include: {
+          agency: true,
+        },
+      },
+    },
+  });
+
+  if (!user || !user.isActive) {
+    return {
+      success: false,
+      message: "Agency user not found.",
+    };
+  }
+
+  const membership = user.agencies[0];
+
+  if (!membership) {
+    return {
+      success: false,
+      message: "Agency membership not found.",
+    };
+  }
+
+  if (!membership.agency.isActive) {
+    return {
+      success: false,
+      message: "Agency account is inactive.",
+    };
+  }
+
+  return {
+    success: true,
+
+    user: {
+      id: user.id,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      email: user.email,
+
+      agencyId: membership.agencyId,
+      agencyName: membership.agency.name,
+      agencySlug: membership.agency.slug,
+      agencyCity: membership.agency.city,
+      agencyRole: membership.role,
+    },
+  };
+}

@@ -11,3 +11,14 @@ export async function loginAgency(email, password) {
 
   return result;
 }
+
+export async function getCurrentAgencyUser() {
+  const token = localStorage.getItem("homehubAgencyToken");
+
+  return apiRequest("/agency/auth/me", {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+}
