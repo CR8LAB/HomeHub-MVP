@@ -1,9 +1,15 @@
+// TEST SAVE
 import { Navigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext.jsx";
 
 function ProtectedRoute({ children }) {
-  const token = localStorage.getItem("homehubAgencyToken");
+  const { loading, isAuthenticated } = useAuth();
 
-  if (!token) {
+  if (loading) {
+    return <p>Loading...</p>;
+  }
+
+  if (!isAuthenticated) {
     return <Navigate to="/login" replace />;
   }
 
