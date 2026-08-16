@@ -2,9 +2,12 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { loginAgency } from "../services/auth.service.js";
+import { useAuth } from "../context/AuthContext.jsx";
 
 function LoginPage() {
   const navigate = useNavigate();
+
+  const { refreshSession } = useAuth();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -20,8 +23,12 @@ function LoginPage() {
 
     try {
       const result = await loginAgency(email, password);
+
       console.log("LOGIN RESULT:", result);
+
       localStorage.setItem("homehubAgencyToken", result.token);
+
+      await refreshSession();
 
       navigate("/portal");
     } catch (error) {

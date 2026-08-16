@@ -8,6 +8,10 @@ import LandingPage from "../pages/LandingPage.jsx";
 import LoginPage from "../pages/LoginPage.jsx";
 import DashboardPage from "../pages/DashboardPage.jsx";
 
+import ActivationCodesPage from "../pages/ActivationCodesPage.jsx";
+import HouseholdsPage from "../pages/HouseholdsPage.jsx";
+import ServicesPage from "../pages/ServicesPage.jsx";
+
 function AppRouter() {
   return (
     <BrowserRouter>
@@ -29,6 +33,12 @@ function AppRouter() {
           }
         >
           <Route index element={<DashboardPage />} />
+
+          <Route path="codes" element={<ActivationCodesPage />} />
+
+          <Route path="households" element={<HouseholdsPage />} />
+
+          <Route path="services" element={<ServicesPage />} />
         </Route>
       </Routes>
     </BrowserRouter>

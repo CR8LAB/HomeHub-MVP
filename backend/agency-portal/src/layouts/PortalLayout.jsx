@@ -1,14 +1,17 @@
 import { Outlet } from "react-router-dom";
 
+import Sidebar from "../components/Sidebar.jsx";
+import Header from "../components/Header.jsx";
+
 function PortalLayout() {
   return (
-    <div>
-      <aside>Sidebar</aside>
+    <div className="portal-layout">
+      <Sidebar />
 
-      <div>
-        <header>Agency Portal Header</header>
+      <div className="portal-main">
+        <Header />
 
-        <main>
+        <main className="portal-content">
           <Outlet />
         </main>
       </div>
