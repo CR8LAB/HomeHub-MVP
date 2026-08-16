@@ -8,7 +8,7 @@ import todoRoutes from "./routes/todo.routes.js";
 import dashboardRoutes from "./routes/dashboard.routes.js";
 import cors from "cors";
 import weatherRoutes from "./routes/weather.routes.js";
-
+import agencyDashboardRoutes from "./routes/agency-dashboard.routes.js";
 const app = express();
 
 app.use(
@@ -28,4 +28,5 @@ app.use("/api/todos", todoRoutes);
 app.use("/api/dashboard", dashboardRoutes);
 app.use("/api/weather", weatherRoutes);
 app.use("/api/agency/auth", agencyAuthRoutes);
+app.use("/api/agency/dashboard", agencyDashboardRoutes);
 export default app;
