@@ -10,11 +10,14 @@ async function main() {
       slug: "seeff-bloemfontein",
     },
 
-    update: {},
+    update: {
+      codePrefix: "SEEFF-BFN",
+    },
 
     create: {
       name: "Seeff Bloemfontein",
       slug: "seeff-bloemfontein",
+      codePrefix: "SEEFF-BFN",
       city: "Bloemfontein",
       isActive: true,
     },

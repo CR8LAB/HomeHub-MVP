@@ -144,12 +144,14 @@ model Todo {
 }
 
 model Agency {
-  id       Int    @id @default(autoincrement())
-  name     String
-  slug     String @unique
-  city     String?
-  logoUrl  String?
-  isActive Boolean @default(true)
+  id         Int    @id @default(autoincrement())
+  name       String
+  slug       String @unique
+  codePrefix String? @unique
+
+  city       String?
+  logoUrl    String?
+  isActive   Boolean @default(true)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
