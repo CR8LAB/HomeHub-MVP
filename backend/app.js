@@ -10,6 +10,7 @@ import cors from "cors";
 import weatherRoutes from "./routes/weather.routes.js";
 import agencyDashboardRoutes from "./routes/agency-dashboard.routes.js";
 import agencyActivationCodeRoutes from "./routes/agency-activation-code.routes.js";
+import agencyHouseholdRoutes from "./routes/agency-household.routes.js";
 const app = express();
 
 app.use(
@@ -31,4 +32,5 @@ app.use("/api/weather", weatherRoutes);
 app.use("/api/agency/auth", agencyAuthRoutes);
 app.use("/api/agency/dashboard", agencyDashboardRoutes);
 app.use("/api/agency/activation-codes", agencyActivationCodeRoutes);
+app.use("/api/agency/households", agencyHouseholdRoutes);
 export default app;
