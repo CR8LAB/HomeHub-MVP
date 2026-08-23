@@ -30,6 +30,8 @@ export function authenticateToken(req, res, next) {
 
       agencyId: decodedToken.agencyId,
       agencyRole: decodedToken.agencyRole,
+
+      systemRole: decodedToken.systemRole,
     };
 
     next();
