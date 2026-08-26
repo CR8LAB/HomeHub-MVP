@@ -33,3 +33,53 @@ export async function getAllAgenciesService() {
     })),
   };
 }
+
+export async function updateAgencyPaymentService(agencyId, paymentStatus) {
+  const allowedStatuses = ["PENDING", "PAID", "OVERDUE"];
+
+  if (!allowedStatuses.includes(paymentStatus)) {
+    return {
+      success: false,
+      statusCode: 400,
+      message: "Invalid payment status.",
+    };
+  }
+
+  const agency = await prisma.agency.findUnique({
+    where: {
+      id: Number(agencyId),
+    },
+  });
+
+  if (!agency) {
+    return {
+      success: false,
+      statusCode: 404,
+      message: "Agency not found.",
+    };
+  }
+
+  const updatedAgency = await prisma.agency.update({
+    where: {
+      id: Number(agencyId),
+    },
+
+    data: {
+      paymentStatus,
+    },
+  });
+
+  return {
+    success: true,
+    statusCode: 200,
+    message: "Agency payment status updated.",
+
+    agency: {
+      id: updatedAgency.id,
+      name: updatedAgency.name,
+      status: updatedAgency.status,
+      paymentStatus: updatedAgency.paymentStatus,
+      isActive: updatedAgency.isActive,
+    },
+  };
+}
